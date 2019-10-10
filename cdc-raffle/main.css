@@ -1,0 +1,296 @@
+body {
+  margin: 0;
+  font-family: "Montserrat", sans-serif; }
+
+* {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
+.wrapper {
+  width: 100vw;
+  height: 100vh;
+  background-image: url(bg-main.png);
+  background-size: 100% 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden; }
+
+.main {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  z-index: 1; }
+  .main-border {
+    position: absolute;
+    width: 100vw;
+    height: auto;
+    left: 0;
+    top: 23%; }
+
+.header-transmartLogo {
+  position: absolute;
+  top: 5%;
+  left: 4%;
+  width: 18vw;
+  height: auto; }
+
+.header-eventLogo {
+  position: absolute;
+  top: 0;
+  right: 4%;
+  width: 18vw;
+  height: auto; }
+
+.footer {
+  height: 20vh;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  background-image: url(bg-footer.png);
+  background-repeat: repeat-x;
+  background-position-y: bottom; }
+  .footer-logo {
+    width: 25vw;
+    height: auto;
+    position: absolute;
+    right: 3%;
+    bottom: 16%; }
+
+.slotMachine {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: 0 3.5%;
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100vh;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .slotMachine-box {
+    height: 64vh;
+    width: 100%;
+    background-image: url(bg-slotmachine.png);
+    background-size: 100% 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    margin-top: 10%;
+    padding: 11% 18% 13%; }
+  .slotMachine-list {
+    text-align: center;
+    height: 100%;
+    width: 100%; }
+  .slotMachine-item {
+    font-size: 2.45vw;
+    padding: 4.5vh 0;
+    white-space: nowrap;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis; }
+  .slotMachine-action {
+    width: 100%;
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+    margin-top: auto;
+    padding-bottom: 10%;
+    background-image: url(bg-button.png);
+    background-size: contain;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    position: relative;
+    height: 27vh; }
+  .slotMachine-button {
+    position: absolute;
+    left: calc(50% - 10vw);
+    top: -50%;
+    width: 20vw;
+    background-color: transparent;
+    height: 20vw;
+    display: block;
+    margin: 0 auto;
+    border: none;
+    font-size: 5rem;
+    outline: none;
+    font-size: 0;
+    text-indent: -9999px;
+    background-image: url(button-active.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%; }
+    .slotMachine-button:active, .slotMachine-button.is-pressed {
+      background-image: url(button-pressed.png); }
+    .slotMachine-button.is-stop {
+      background-image: url(button-stop.png); }
+    .slotMachine-button.is-disabled, .slotMachine-button:disabled {
+      background-image: url(button-off.png); }
+
+.prize {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 25%;
+  padding-left: 2.5%;
+  padding-right: 0;
+  height: 42vh;
+  margin-top: 8%;
+  color: #ffda85;
+  text-align: center; }
+  .prize-box {
+    width: 100%;
+    height: 100%;
+    background-image: url(bg-prize.png);
+    background-size: 100% 100%;
+    padding: 20%;
+    position: relative; }
+  .prize-title {
+    font-weight: bold;
+    font-size: 2vw;
+    margin-bottom: 15%; }
+  .prize-swiper .swiper-slide {
+    text-align: center;
+    font-size: 2vw;
+    font-weight: bold; }
+  .prize .swiper-button-next,
+  .prize .swiper-button-prev {
+    color: #ffda85; }
+  .prize .swiper-button-next {
+    right: 10%; }
+  .prize .swiper-button-prev {
+    left: 10%; }
+
+.thumbnail {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  width: 25%;
+  padding-right: 2.5%;
+  height: 58vh; }
+  .thumbnail-box {
+    width: 100%;
+    height: 100%;
+    background-image: url(bg-thumbnail.png);
+    background-size: 100% 100%;
+    padding: 24% 5% 24% 4%; }
+  .thumbnail-swiper {
+    width: 100%;
+    height: 100%; }
+    .thumbnail-swiper .swiper-slide {
+      padding: 3%; }
+      .thumbnail-swiper .swiper-slide img {
+        width: 100%;
+        height: 100%;
+        -o-object-fit: contain;
+        object-fit: contain; }
+
+.singleWinner-name {
+  font-size: 3vw;
+  font-weight: 900;
+  color: #A20202;
+  text-transform: uppercase;
+  margin-bottom: 5%; }
+
+.singleWinner-ktp, .singleWinner-phone {
+  font-size: 1.5vw;
+  margin-bottom: 3%;
+  font-weight: 600; }
+
+.singleWinner-prizeImage {
+  width: 100%;
+  margin: 5% auto; }
+
+.singleWinner-prizeName {
+  font-weight: 700;
+  font-size: 1.4vw;
+  text-align: center; }
+
+/* The Modal (background) */
+.modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */ }
+
+/* Modal Body */
+.modal-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 6%;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-image: url(bg-popup-winner.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  margin: 5vh auto 5vh;
+  height: 90vh;
+  padding: 0;
+  width: 36vw;
+  -webkit-animation-name: animatetop;
+  animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-duration: 0.4s; }
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0; }
+  to {
+    top: 0;
+    opacity: 1; } }
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0; }
+  to {
+    top: 0;
+    opacity: 1; } }

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="ID" itemscope="" itemtype="http://schema.org/WebPage">
+
+<head>
+    <meta charset="utf-8">
+    <title>Transmart Raffle System</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/css/swiper.min.css">
+    <link rel="stylesheet" href="slotmachine.css">
+    <link rel="stylesheet" href="main.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="slotmachine.js"></script>
+    <script src="https://unpkg.com/swiper/js/swiper.min.js"></script>
+    <script src="main.js"></script>
+</head>
+
+<body>
+    <div class="wrapper">        
+        <div class="header">
+            <img class="header-transmartLogo" src="logo-transmart.png" />
+            <img class="header-eventLogo" src="logo-event.png" />
+        </div>
+        <img class="main-border" src="bg-border.png" />
+        <div class="main">
+            <div class="prize">
+                <div class="prize-box">
+                    <div class="prize-title">Hadiah</div>
+                    <div class="prize-swiper swiper-container jsSwiperPrize">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide">Daihatsu New Sirion</div>
+                            <div class="swiper-slide">Motor Honda Beat Pop</div>
+                        </div>                        
+                    </div>
+                    <div class="swiper-button-prev"></div>
+                    <div class="swiper-button-next"></div>
+                </div>
+            </div>
+            <div class="slotMachine">
+                <div class="slotMachine-box">
+                    <div id="jsSlotMachine" class="slotMachine-list">
+                        <div class="slotMachine-item">Stevan Gerrado Soplanit</div>
+                        <div class="slotMachine-item">April Cabello</div>
+                        <div class="slotMachine-item">Babono</div>
+                        <div class="slotMachine-item">Hernisa Clara</div>
+                        <div class="slotMachine-item">Cinantya Rahmadita</div>
+                        <div class="slotMachine-item">Christin Stefphanie</div>
+                        <div class="slotMachine-item">Arini Annisa</div>
+                        <div class="slotMachine-item">Intan Komalasari</div>
+                        <div class="slotMachine-item">Ismail Aditya</div>
+                    </div>
+                </div>
+                <div class="slotMachine-action">
+                    <button class="slotMachine-button jsSlotMachineButton">Mulai</button>
+                </div>
+            </div>
+            <div class="thumbnail">
+                <div class="thumbnail-box">
+                    <div class="thumbnail-swiper swiper-container jsSwiperThumbnail">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="image-sirion.png"></div>
+                            <div class="swiper-slide"><img src="image-motor.png"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <img class="footer-logo" src="logo-ctcd.png" />
+        </div>
+    </div>
+    <!-- The Modal -->
+    <div id="myModal" class="modal">   
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="singleWinner-name">Ivan Raharja</div>
+                <div class="singleWinner-ktp">No. KTP <span>31741505xxxxxxx</span></div>
+                <div class="singleWinner-phone"><span>087231293xxx</span></div>
+                <img class="singleWinner-prizeImage" src="image-motor.png" />
+                <div class="singleWinner-prizeName">Pemenang 1 Unit Daihatsu New Sirion</div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
