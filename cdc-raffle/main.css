@@ -6,11 +6,48 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box; }
 
+.potrait {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 10%;
+  top: 0;
+  left: 0;
+  background-image: url(bg-main.png);
+  z-index: 10;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+  .potrait-image {
+    width: 40%;
+    margin: 0 auto 20%; }
+  .potrait-notice {
+    font-size: 6vw;
+    font-weight: 700;
+    text-align: center; }
+
+@media screen and (orientation: landscape) {
+  .potrait {
+    display: none !important; }
+  .wrapper {
+    opacity: 0 !important; } }
+
 .wrapper {
   width: 100vw;
   height: 100vh;
   background-image: url(bg-main.png);
   background-size: 100% 100%;
+  opacity: 1 !important;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -104,7 +141,7 @@ body {
     width: 100%; }
   .slotMachine-item {
     font-size: 2.45vw;
-    padding: 4.5vh 0;
+    padding: 2.35vw 0;
     white-space: nowrap;
     overflow: hidden;
     -o-text-overflow: ellipsis;
@@ -163,10 +200,38 @@ body {
     background-size: 100% 100%;
     padding: 20%;
     position: relative; }
+  .prize-selectButton {
+    width: 8vw;
+    border: 2px solid transparent;
+    border-radius: 0.5vw;
+    padding: 3% 0;
+    font-size: 1vw;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: #ffda85;
+    margin-top: 8%; }
+    .prize-selectButton.is-hidden {
+      display: none; }
+  .prize-cancelButton {
+    width: 8vw;
+    border: 2px solid #ffda85;
+    border-radius: 0.5vw;
+    padding: 3% 0;
+    font-size: 1vw;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: transparent;
+    color: #ffda85;
+    margin-top: 8%; }
+    .prize-cancelButton.is-hidden {
+      display: none; }
   .prize-title {
     font-weight: bold;
     font-size: 2vw;
-    margin-bottom: 15%; }
+    margin-bottom: 8%; }
+    .prize-title.is-blinking {
+      -webkit-animation: blinker 1s linear infinite;
+      animation: blinker 1s linear infinite; }
   .prize-swiper .swiper-slide {
     text-align: center;
     font-size: 2vw;
@@ -174,6 +239,9 @@ body {
   .prize .swiper-button-next,
   .prize .swiper-button-prev {
     color: #ffda85; }
+    .prize .swiper-button-next.is-hidden,
+    .prize .swiper-button-prev.is-hidden {
+      display: none; }
   .prize .swiper-button-next {
     right: 10%; }
   .prize .swiper-button-prev {
@@ -191,10 +259,18 @@ body {
     height: 100%;
     background-image: url(bg-thumbnail.png);
     background-size: 100% 100%;
-    padding: 24% 5% 24% 4%; }
+    padding: 23% 5% 24% 4%; }
   .thumbnail-swiper {
     width: 100%;
-    height: 100%; }
+    height: 100%;
+    border-radius: 7%; }
+    .thumbnail-swiper.is-locked:before {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 2; }
     .thumbnail-swiper .swiper-slide {
       padding: 3%; }
       .thumbnail-swiper .swiper-slide img {
@@ -223,6 +299,18 @@ body {
   font-weight: 700;
   font-size: 1.4vw;
   text-align: center; }
+
+.singleWinner-button {
+  margin-top: 8%;
+  width: 40%;
+  border: 2px solid transparent;
+  border-radius: 0.5vw;
+  padding: 3% 0;
+  font-size: 1vw;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: #fff;
+  background-color: #2596C4; }
 
 /* The Modal (background) */
 .modal {
@@ -294,3 +382,11 @@ body {
   to {
     top: 0;
     opacity: 1; } }
+
+@-webkit-keyframes blinker {
+  50% {
+    opacity: 0; } }
+
+@keyframes blinker {
+  50% {
+    opacity: 0; } }

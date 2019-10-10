@@ -7,11 +7,47 @@ body {
   box-sizing: border-box;
 }
 
+.potrait{
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10%;
+  top: 0;
+  left: 0;
+  background-image:url(bg-main.png);
+  z-index: 10;
+  flex-direction: column;
+  &-image{
+    width: 40%;
+    margin: 0 auto 20%;
+  }
+  &-notice{
+    font-size: 6vw;
+    font-weight: 700;
+    text-align: center;
+  }
+}
+
+@media screen and (orientation:landscape)
+{
+  .potrait{
+    display: none!important;
+  }
+  .wrapper {
+    opacity: 0!important;
+  }
+}
+
+
 .wrapper {
   width: 100vw;
   height: 100vh;
   background-image: url(bg-main.png);
   background-size: 100% 100%;
+  opacity: 1!important;
   display: flex;
   align-items: center;
   position: relative;
@@ -94,10 +130,11 @@ body {
   }
   &-item {
     font-size: 2.45vw;
-    padding: 4.5vh 0;
+    padding: 2.35vw 0;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    
   }
   &-action {
     width: 100%;
@@ -159,10 +196,42 @@ body {
     padding: 20%;
     position: relative;
   }
+  &-selectButton{
+    width: 8vw;
+    border: 2px solid transparent;
+    border-radius: 0.5vw;
+    padding: 3% 0;
+    font-size: 1vw;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: #ffda85;
+    margin-top: 8%;
+    &.is-hidden{
+      display: none;
+    }
+  }
+  &-cancelButton{
+    width: 8vw;
+    border: 2px solid #ffda85;
+    border-radius: 0.5vw;
+    padding: 3% 0;
+    font-size: 1vw;
+    text-transform: uppercase;
+    font-weight: 500;
+    background-color: transparent;
+    color: #ffda85;
+    margin-top: 8%;
+    &.is-hidden{
+      display: none;
+    }
+  }
   &-title {
     font-weight: bold;
     font-size: 2vw;
-    margin-bottom: 15%;
+    margin-bottom: 8%;
+    &.is-blinking{
+      animation: blinker 1s linear infinite;
+    }
   }
   &-swiper {
     .swiper-slide {
@@ -174,6 +243,9 @@ body {
   .swiper-button-next,
   .swiper-button-prev {
     color: #ffda85;
+    &.is-hidden{
+      display: none;
+    }
   }
   .swiper-button-next {
     right: 10%;
@@ -193,11 +265,22 @@ body {
     height: 100%;
     background-image: url(bg-thumbnail.png);
     background-size: 100% 100%;
-    padding: 24% 5% 24% 4%;
+    padding: 23% 5% 24% 4%;  
   }
   &-swiper {
     width: 100%;
     height: 100%;
+    border-radius: 7%;    
+    &.is-locked{
+      &:before{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 2;
+      }
+    }
     .swiper-slide {
       padding: 3%;
       img {
@@ -232,6 +315,18 @@ body {
         font-weight: 700;
         font-size: 1.4vw;
         text-align: center;
+    }
+    &-button{
+      margin-top: 8%;
+      width: 40%;
+      border: 2px solid transparent;
+      border-radius: 0.5vw;
+      padding: 3% 0;
+      font-size: 1vw;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #fff;
+      background-color: #2596C4;
     }
 }
 
@@ -285,5 +380,12 @@ body {
   to {
     top: 0;
     opacity: 1;
+  }
+}
+
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
   }
 }

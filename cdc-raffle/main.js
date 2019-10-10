@@ -34,14 +34,17 @@ $(document).ready(function () {
 
     mySound = new sound("tick.mp3");
 
-    var stateMachine = "default";
+    //-- state --//
+    //-- start -> ready -> shuffling -> stop -> start  --//
+
+    var stateMachine = "start";
+    var prizeName;
+    var prizeImage;
+    var prizeWinner;
 
     var machine = new SlotMachine(planeMachine, {
         active: 0,
-        delay: 600,
-        randomize() {
-            return 1;
-        }
+        delay: 600
     });
 
     function machinePlay(){
@@ -49,29 +52,95 @@ $(document).ready(function () {
         //     mySound.play(); 
         // }, 25);
         stateMachine = 'shuffling';
+        $('.jsCancelPrizeButton').addClass('is-hidden');
         $('.jsSlotMachineButton').removeClass('is-pressed').addClass('is-stop');
-        machine.shuffle(9999999, () => showModal());
+        machine.shuffle(9999999);
     }
 
     function machineStop(){
-        stateMachine = 'default';
+        stateMachine = 'stop';
         machine.stop();
-        console.log(machine.active);
+        prizeWinner = $('.jsSlotMachineItem:nth-child(' + (machine.active+1) + ')').text();
+        console.log(prizeWinner);        
+        // $('.jsPrizeWinnerName').html();
         setTimeout(function(){ 
-            $('.jsSlotMachineButton').removeClass('is-stop');
-        }, 700);
+            $('.jsSlotMachineButton').removeClass('is-stop').addClass('is-disabled');
+            showModal();           
+        }, 2000);
+
+    }
+
+    function selectPrize(){
+        stateMachine = 'ready';
+        $('.jsSwiperThumbnail').removeClass('is-locked');
+        $('.jsSlotMachineButton').removeClass('is-disabled');
+        $('.jsSlotMachineButton').prop("disabled", false);
+        $('.jsSelectPrizeButton').addClass('is-hidden');
+        $('.jsCancelPrizeButton').removeClass('is-hidden');
+        $('.jsSwiperPrizeArrow').addClass('is-hidden');
+        $('.jsPrizeTitle').removeClass('is-blinking');       
+        prizeName =  $(".jsSwiperPrizeSlide.swiper-slide-active").html();
+        prizeImage =  "image-" + $(".jsSwiperPrizeSlide.swiper-slide-active").attr('data-type') + ".png";
+        $('.jsPrizeName').html(prizeName);
+        $('.jsPrizeImage').attr('src', prizeImage);
         
     }
 
+    function cancelPrize(){
+        stateMachine = 'start';
+        $('.jsSwiperThumbnail').addClass('is-locked');
+        $('.jsSlotMachineButton').addClass('is-disabled');
+        $('.jsSlotMachineButton').prop("disabled", true);
+        $('.jsSelectPrizeButton').removeClass('is-hidden');
+        $('.jsCancelPrizeButton').addClass('is-hidden');
+        $('.jsSwiperPrizeArrow').removeClass('is-hidden');
+        $('.jsPrizeTitle').addClass('is-blinking');        
+    }
+
+    function finish(){
+        stateMachine = 'start';
+        closeModal();
+        $('.jsSwiperThumbnail').addClass('is-locked');
+        $('.jsSlotMachineButton').addClass('is-disabled');
+        $('.jsSlotMachineButton').prop("disabled", true);
+        $('.jsSelectPrizeButton').removeClass('is-hidden');
+        $('.jsCancelPrizeButton').addClass('is-hidden');
+        $('.jsSwiperPrizeArrow').removeClass('is-hidden');
+        $('.jsPrizeTitle').addClass('is-blinking');
+    }
+
+    function showModal(){
+        document.getElementById("myModal").style.display = "block";     
+    }
+
+    function closeModal(){
+        document.getElementById("myModal").style.display = "none";
+    }
+
     $('.jsSlotMachineButton').click(function(){        
-        if(stateMachine == 'default'){
+        if(stateMachine == 'ready'){
             machinePlay();
         }
         else if(stateMachine == 'shuffling'){
             machineStop();
-
         }
     });
+
+    $('.jsSelectPrizeButton').click(function(){        
+        selectPrize();
+    });
+
+    $('.jsCancelPrizeButton').click(function(){        
+        cancelPrize();
+    });
+
+    $('.jsSingleWinnerButton').click(function(){        
+        finish();
+    });
+
+    
+
+    
 
     $('body').keydown(function(e){
         if(e.keyCode == 32){
@@ -80,28 +149,47 @@ $(document).ready(function () {
      });
 
      $('body').keyup(function(e){
-        if(e.keyCode == 8){
-            // user has pressed backspace
-            
-        }
-        else if(e.keyCode == 32){
+        if(e.keyCode == 32){
             // user has pressed space
-            if(stateMachine == 'default'){
+            if(stateMachine == 'start'){
+                selectPrize();
+                return;
+            }
+            else if(stateMachine == 'ready'){
                 machinePlay();
+                return;
             }
             else if(stateMachine == 'shuffling'){
                 machineStop();
-
+                return;
+            }
+            else if(stateMachine == 'stop'){
+                finish();
+                return;
             }
         }
         else if(e.keyCode == 37) { 
             // user has pressed arrow left
-            swiperPrize.slidePrev();
+            if(stateMachine == 'start'){
+                swiperPrize.slidePrev();
+            }
+            
         }
         else if(e.keyCode == 39) { 
             // user has pressed arrow right
-            swiperPrize.slideNext();
+            if(stateMachine == 'start'){
+                swiperPrize.slideNext();
+            }
         }
+
+        else if( e.keyCode == 8 || e.keyCode == 46 ){
+            // user has pressed backspace or del
+            console.log("Waddup");
+            if(stateMachine == 'ready'){
+                cancelPrize();
+            }
+        }
+        
      });
 
     var swiperThumbnail = new Swiper ('.jsSwiperThumbnail', {
@@ -111,6 +199,7 @@ $(document).ready(function () {
 
     var swiperPrize = new Swiper ('.jsSwiperPrize', {
         loop: true,
+        simulateTouch:false,
     
         navigation: {
           nextEl: '.swiper-button-next',
@@ -127,15 +216,5 @@ $(document).ready(function () {
     });
 
     
-
-    
-
-
-function showModal(){
-    setTimeout(function(){ 
-        document.getElementById("myModal").style.display = "block"; 
-    }, 2000);
-    
-}
 
 });

@@ -26,40 +26,48 @@
         <div class="main">
             <div class="prize">
                 <div class="prize-box">
-                    <div class="prize-title">Hadiah</div>
+                    <div class="prize-title is-blinking jsPrizeTitle">Pilih Hadiah</div>
                     <div class="prize-swiper swiper-container jsSwiperPrize">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">Daihatsu New Sirion</div>
-                            <div class="swiper-slide">Motor Honda Beat Pop</div>
+                            <div class="swiper-slide jsSwiperPrizeSlide" data-type="mobil">Daihatsu New Sirion</div>
+                            <div class="swiper-slide jsSwiperPrizeSlide" data-type="motor">Motor Honda Beat Pop</div>
                         </div>                        
                     </div>
-                    <div class="swiper-button-prev"></div>
-                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev jsSwiperPrizeArrow"></div>
+                    <div class="swiper-button-next jsSwiperPrizeArrow"></div>
+                    <button class="prize-selectButton jsSelectPrizeButton">Ok</button>
+                    <button class="prize-cancelButton jsCancelPrizeButton is-hidden">Cancel</button>
                 </div>
             </div>
             <div class="slotMachine">
                 <div class="slotMachine-box">
                     <div id="jsSlotMachine" class="slotMachine-list">
-                        <div class="slotMachine-item">Stevan Gerrado Soplanit</div>
-                        <div class="slotMachine-item">April Cabello</div>
-                        <div class="slotMachine-item">Babono</div>
-                        <div class="slotMachine-item">Hernisa Clara</div>
-                        <div class="slotMachine-item">Cinantya Rahmadita</div>
-                        <div class="slotMachine-item">Christin Stefphanie</div>
-                        <div class="slotMachine-item">Arini Annisa</div>
-                        <div class="slotMachine-item">Intan Komalasari</div>
-                        <div class="slotMachine-item">Ismail Aditya</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Stevan Gerrado Soplanit</div>
+                        <div class="slotMachine-item jsSlotMachineItem">April Cabello</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Babono</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Hernisa Clara Amalia</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Cinantya Rahmadita</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Christin Stefphanie</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Arini Annisa</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Intan Komalasari</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Ismail Aditya</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Jimmi Ricardo</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Qinan Prayoga</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Triyan Arif Wibowo</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Andri Achmad</div>
+                        <div class="slotMachine-item jsSlotMachineItem">Agung Agriza</div>
+                        <div class="slotMachine-item jsSlotMachineItem">David Pangemanan</div>
                     </div>
                 </div>
                 <div class="slotMachine-action">
-                    <button class="slotMachine-button jsSlotMachineButton">Mulai</button>
+                    <button class="slotMachine-button jsSlotMachineButton is-disabled" disabled>Mulai</button>
                 </div>
             </div>
             <div class="thumbnail">
                 <div class="thumbnail-box">
-                    <div class="thumbnail-swiper swiper-container jsSwiperThumbnail">
+                    <div class="thumbnail-swiper swiper-container jsSwiperThumbnail is-locked">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide"><img src="image-sirion.png"></div>
+                            <div class="swiper-slide"><img src="image-mobil.png"></div>
                             <div class="swiper-slide"><img src="image-motor.png"></div>
                         </div>
                     </div>
@@ -79,9 +87,14 @@
                 <div class="singleWinner-ktp">No. KTP <span>31741505xxxxxxx</span></div>
                 <div class="singleWinner-phone"><span>087231293xxx</span></div>
                 <img class="singleWinner-prizeImage" src="image-motor.png" />
-                <div class="singleWinner-prizeName">Pemenang 1 Unit Daihatsu New Sirion</div>
+                <div class="singleWinner-prizeName">Pemenang 1 Unit <span class="jsPrizeName">Daihatsu New Sirion</span></div>
+                <button class="singleWinner-button jsSingleWinnerButton">Ok</button>
             </div>
         </div>
+    </div>
+    <div class="potrait">
+        <img class="potrait-image" src="image-rotate.png" />
+        <div class="potrait-notice">This app is optimized for Landscape Orientation Device, Please rotate your device</div>
     </div>
 </body>
 
