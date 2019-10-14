@@ -123,7 +123,7 @@ body {
   -ms-flex-align: center;
   align-items: center; }
   .slotMachine-box {
-    height: 64vh;
+    height: 34vw;
     width: 100%;
     background-image: url(bg-slotmachine.png);
     background-size: 100% 100%;
@@ -259,17 +259,17 @@ body {
     height: 100%;
     background-image: url(bg-thumbnail.png);
     background-size: 100% 100%;
-    padding: 23% 5% 24% 4%; }
+    padding: 5.25vw 1.1vw 5.4vw 0.9vw; }
   .thumbnail-swiper {
     width: 100%;
     height: 100%;
     border-radius: 7%; }
     .thumbnail-swiper.is-locked:before {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.8);
+      background: black;
       z-index: 2; }
     .thumbnail-swiper .swiper-slide {
       padding: 3%; }
@@ -282,7 +282,7 @@ body {
 .singleWinner-name {
   font-size: 3vw;
   font-weight: 900;
-  color: #A20202;
+  color: #a20202;
   text-transform: uppercase;
   margin-bottom: 5%; }
 
@@ -310,7 +310,96 @@ body {
   text-transform: uppercase;
   font-weight: 500;
   color: #fff;
-  background-color: #2596C4; }
+  background-color: #2596c4; }
+
+.singleWinner .modal-content {
+  background-image: url(bg-popup-winner.png);
+  margin: 5vh auto 5vh;
+  height: 90vh;
+  width: 36vw; }
+
+.resultWinner-prizeList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 4vw; }
+
+.resultWinner-prizeItem.mobil {
+  width: 40%;
+  padding-left: 10%; }
+  .resultWinner-prizeItem.mobil .resultWinner-prizeItem-image img {
+    margin: 0 auto; }
+
+.resultWinner-prizeItem.motor {
+  width: 60%;
+  padding-left: 6%;
+  padding-right: 2%; }
+  .resultWinner-prizeItem.motor .resultWinner-prizeItem-image img {
+    width: 50%;
+    margin: 0 auto; }
+
+.resultWinner-prizeItem-image {
+  height: 15vw; }
+  .resultWinner-prizeItem-image img {
+    -o-object-fit: contain;
+    object-fit: contain;
+    height: 100%;
+    width: 100%; }
+
+.resultWinner-prizeItem-name {
+  font-weight: 700;
+  font-size: 1.5vw;
+  letter-spacing: 0.75px;
+  color: #003788;
+  margin: 0.5vw 0 1vw; }
+
+.resultWinner-prizeItem-phone {
+  font-weight: 700;
+  font-size: 1.15vw;
+  letter-spacing: 0.75px;
+  color: #003788;
+  margin: 0.5vw 0 1vw; }
+
+.resultWinner-prizeItem-ktp {
+  font-size: 0.85vw; }
+
+.resultWinner-prizeItem-winnerList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex; }
+  .resultWinner-prizeItem-winnerList .resultWinner-prizeItem-winner {
+    font-size: 1vw;
+    margin-top: 0.5vw; }
+
+.resultWinner-prizeItem-winnerItem {
+  width: 33.33%;
+  padding: 0 1%; }
+
+.resultWinner-prizeItem-winner {
+  background: #FFEAB2 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  font-weight: 700;
+  font-size: 1.5vw;
+  letter-spacing: 0.75px;
+  color: #003788;
+  padding: 0.5vw 0; }
+
+.resultWinner-title, .resultWinner-date {
+  font-weight: 700;
+  font-size: 2.2vw;
+  letter-spacing: 0;
+  color: #FFFFFF;
+  text-shadow: 0px 3px 6px #00000029;
+  text-transform: uppercase; }
+
+.resultWinner .modal-content {
+  background-image: url(bg-winner-summary.png);
+  margin: 2vw auto 1vw;
+  height: 49.25vw;
+  width: 96vw; }
+
+.resultWinner .modal-body {
+  text-align: center; }
 
 /* The Modal (background) */
 .modal {
@@ -355,13 +444,9 @@ body {
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-image: url(bg-popup-winner.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  margin: 5vh auto 5vh;
-  height: 90vh;
   padding: 0;
-  width: 36vw;
   -webkit-animation-name: animatetop;
   animation-name: animatetop;
   -webkit-animation-duration: 0.4s;

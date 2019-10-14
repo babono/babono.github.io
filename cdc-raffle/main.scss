@@ -7,7 +7,7 @@ body {
   box-sizing: border-box;
 }
 
-.potrait{
+.potrait {
   position: fixed;
   width: 100vw;
   height: 100vh;
@@ -17,37 +17,35 @@ body {
   padding: 10%;
   top: 0;
   left: 0;
-  background-image:url(bg-main.png);
+  background-image: url(bg-main.png);
   z-index: 10;
   flex-direction: column;
-  &-image{
+  &-image {
     width: 40%;
     margin: 0 auto 20%;
   }
-  &-notice{
+  &-notice {
     font-size: 6vw;
     font-weight: 700;
     text-align: center;
   }
 }
 
-@media screen and (orientation:landscape)
-{
-  .potrait{
-    display: none!important;
+@media screen and (orientation: landscape) {
+  .potrait {
+    display: none !important;
   }
   .wrapper {
-    opacity: 0!important;
+    opacity: 0 !important;
   }
 }
-
 
 .wrapper {
   width: 100vw;
   height: 100vh;
   background-image: url(bg-main.png);
   background-size: 100% 100%;
-  opacity: 1!important;
+  opacity: 1 !important;
   display: flex;
   align-items: center;
   position: relative;
@@ -114,7 +112,7 @@ body {
   height: 100vh;
   align-items: center;
   &-box {
-    height: 64vh;
+    height: 34vw;
     width: 100%;
     background-image: url(bg-slotmachine.png);
     background-size: 100% 100%;
@@ -134,7 +132,6 @@ body {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    
   }
   &-action {
     width: 100%;
@@ -196,7 +193,7 @@ body {
     padding: 20%;
     position: relative;
   }
-  &-selectButton{
+  &-selectButton {
     width: 8vw;
     border: 2px solid transparent;
     border-radius: 0.5vw;
@@ -206,11 +203,11 @@ body {
     font-weight: 500;
     background-color: #ffda85;
     margin-top: 8%;
-    &.is-hidden{
+    &.is-hidden {
       display: none;
     }
   }
-  &-cancelButton{
+  &-cancelButton {
     width: 8vw;
     border: 2px solid #ffda85;
     border-radius: 0.5vw;
@@ -221,7 +218,7 @@ body {
     background-color: transparent;
     color: #ffda85;
     margin-top: 8%;
-    &.is-hidden{
+    &.is-hidden {
       display: none;
     }
   }
@@ -229,7 +226,7 @@ body {
     font-weight: bold;
     font-size: 2vw;
     margin-bottom: 8%;
-    &.is-blinking{
+    &.is-blinking {
       animation: blinker 1s linear infinite;
     }
   }
@@ -243,7 +240,7 @@ body {
   .swiper-button-next,
   .swiper-button-prev {
     color: #ffda85;
-    &.is-hidden{
+    &.is-hidden {
       display: none;
     }
   }
@@ -265,19 +262,19 @@ body {
     height: 100%;
     background-image: url(bg-thumbnail.png);
     background-size: 100% 100%;
-    padding: 23% 5% 24% 4%;  
+    padding: 5.25vw 1.1vw 5.4vw 0.9vw;
   }
   &-swiper {
     width: 100%;
     height: 100%;
-    border-radius: 7%;    
-    &.is-locked{
-      &:before{
-        content: '';
+    border-radius: 7%;
+    &.is-locked {
+      &:before {
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
+        background: rgba(0, 0, 0, 1);
         z-index: 2;
       }
     }
@@ -292,42 +289,140 @@ body {
   }
 }
 
-.singleWinner{
-    &-name{
-        font-size: 3vw;
-        font-weight: 900;
-        color: #A20202;
-        text-transform: uppercase;
-        margin-bottom: 5%;
-    }
-    &-ktp,
-    &-phone{
-        font-size: 1.5vw;
-        margin-bottom: 3%;
-        font-weight: 600;
-    }
-    &-prizeImage{
-        width: 100%;
-        margin: 5% auto;
-        
-    }
-    &-prizeName{
-        font-weight: 700;
-        font-size: 1.4vw;
-        text-align: center;
-    }
-    &-button{
-      margin-top: 8%;
+.singleWinner {
+  &-name {
+    font-size: 3vw;
+    font-weight: 900;
+    color: #a20202;
+    text-transform: uppercase;
+    margin-bottom: 5%;
+  }
+  &-ktp,
+  &-phone {
+    font-size: 1.5vw;
+    margin-bottom: 3%;
+    font-weight: 600;
+  }
+  &-prizeImage {
+    width: 100%;
+    margin: 5% auto;
+  }
+  &-prizeName {
+    font-weight: 700;
+    font-size: 1.4vw;
+    text-align: center;
+  }
+  &-button {
+    margin-top: 8%;
+    width: 40%;
+    border: 2px solid transparent;
+    border-radius: 0.5vw;
+    padding: 3% 0;
+    font-size: 1vw;
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    background-color: #2596c4;
+  }
+  .modal-content{
+    background-image: url(bg-popup-winner.png);
+    margin: 5vh auto 5vh;
+    height: 90vh;
+    width: 36vw;
+  }
+}
+
+.resultWinner{
+  &-prizeList{
+    display: flex;
+    margin-bottom: 4vw;
+  }
+  &-prizeItem{
+    $this: &;
+    &.mobil{
       width: 40%;
-      border: 2px solid transparent;
-      border-radius: 0.5vw;
-      padding: 3% 0;
-      font-size: 1vw;
-      text-transform: uppercase;
-      font-weight: 500;
-      color: #fff;
-      background-color: #2596C4;
+      padding-left: 10%;
+      #{$this}-image img{
+        //width: 80%;
+        margin: 0 auto;;
+      }
     }
+    &.motor{
+      width: 60%;
+      padding-left: 6%;
+      padding-right: 2%;
+      #{$this}-image img{
+        width: 50%;
+        margin: 0 auto;;
+      }
+    }
+    &-image{
+      height: 15vw;
+      img{
+        object-fit: contain;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &-name{
+      font-weight: 700;
+      font-size: 1.5vw;
+      letter-spacing: 0.75px;
+      color: #003788;
+      margin: 0.5vw 0 1vw;
+    }
+    &-phone{
+      font-weight: 700;
+      font-size: 1.15vw;
+      letter-spacing: 0.75px;
+      color: #003788;
+      margin: 0.5vw 0 1vw;
+    }
+    &-ktp{
+      font-size: 0.85vw;
+    }
+    &-winnerList{
+      display: flex;
+      #{$this}-winner{
+        font-size: 1vw;
+        margin-top: 0.5vw;
+      }
+    }
+    &-winnerItem{
+      width: 33.33%;
+      padding: 0 1%;
+    }
+    &-winner{
+      background: #FFEAB2 0% 0% no-repeat padding-box;
+      border-radius: 15px;
+      font-weight: 700;
+      font-size: 1.5vw;
+      letter-spacing: 0.75px;
+      color: #003788;
+      padding: 0.5vw 0
+    }
+  }
+  &-title,
+  &-date{
+    font-weight: 700;
+    font-size: 2.2vw;
+    letter-spacing: 0;
+    color: #FFFFFF;
+    text-shadow: 0px 3px 6px #00000029;
+    text-transform: uppercase;
+  }
+  &-date{
+    
+  }
+  .modal-content{
+    background-image: url(bg-winner-summary.png);
+    margin: 2vw auto 1vw;
+    height: 49.25vw;
+    width: 96vw;
+  }
+  .modal-body{
+    text-align: center;
+  }
 }
 
 /* The Modal (background) */
@@ -358,15 +453,9 @@ body {
 /* Modal Content */
 .modal-content {
   position: relative;
-  background-image: url(bg-popup-winner.png);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-
-  margin: 5vh auto 5vh;
-  height: 90vh;
   padding: 0;
-  width: 36vw;
-
   animation-name: animatetop;
   animation-duration: 0.4s;
 }
@@ -382,7 +471,6 @@ body {
     opacity: 1;
   }
 }
-
 
 @keyframes blinker {
   50% {

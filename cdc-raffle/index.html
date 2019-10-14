@@ -17,11 +17,12 @@
 </head>
 
 <body>
-        <div class="potrait">
-                <img class="potrait-image" src="image-rotate.png" />
-                <div class="potrait-notice">Aplikasi ini tidak berjalan secara optimal apabila anda menggunakan "perangkat" anda dalam keadaan "berdiri", mohon "tidurkan" perangkat anda.</div>
-            </div>
-    <div class="wrapper">        
+    <div class="potrait">
+        <img class="potrait-image" src="image-rotate.png" />
+        <div class="potrait-notice">Aplikasi ini tidak berjalan secara optimal apabila anda menggunakan "perangkat" anda
+            dalam keadaan "berdiri", mohon "tidurkan" perangkat anda.</div>
+    </div>
+    <div class="wrapper">
         <div class="header">
             <img class="header-transmartLogo" src="logo-transmart.png" />
             <img class="header-eventLogo" src="logo-event.png" />
@@ -35,12 +36,12 @@
                         <div class="swiper-wrapper">
                             <div class="swiper-slide jsSwiperPrizeSlide" data-type="mobil">Daihatsu New Sirion</div>
                             <div class="swiper-slide jsSwiperPrizeSlide" data-type="motor">Motor Honda Beat Pop</div>
-                        </div>                        
+                        </div>
                     </div>
                     <div class="swiper-button-prev jsSwiperPrizeArrow"></div>
                     <div class="swiper-button-next jsSwiperPrizeArrow"></div>
-                    <button class="prize-selectButton jsSelectPrizeButton">Ok</button>
-                    <button class="prize-cancelButton jsCancelPrizeButton is-hidden">Cancel</button>
+                    <button class="prize-selectButton jsSelectPrizeButton">Pilih</button>
+                    <button class="prize-cancelButton jsCancelPrizeButton is-hidden">Pilih Lagi</button>
                 </div>
             </div>
             <div class="slotMachine">
@@ -83,7 +84,7 @@
         </div>
     </div>
     <!-- The Modal -->
-    <div id="myModal" class="modal">   
+    <div id="jsModalWinner" class="modal singleWinner jsModal">
         <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-body">
@@ -91,8 +92,54 @@
                 <div class="singleWinner-ktp">No. KTP <span>31741505xxxxxxx</span></div>
                 <div class="singleWinner-phone"><span>087231293xxx</span></div>
                 <img class="singleWinner-prizeImage jsPrizeImage" src="image-motor.png" />
-                <div class="singleWinner-prizeName">Pemenang 1 Unit <span class="jsPrizeName">Daihatsu New Sirion</span></div>
-                <button class="singleWinner-button jsSingleWinnerButton">Ok</button>
+                <div class="singleWinner-prizeName">Pemenang 1 Unit <span class="jsPrizeName">Daihatsu New Sirion</span>
+                </div>
+                <button class="singleWinner-button jsSingleWinnerButton">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Modal -->
+    <div id="jsModalResult" class="modal resultWinner jsModal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="resultWinner-title">Belanja HEPI - Periode 1</div>
+                <div class="resultWinner-date">24 November 2019</div>
+                <div class="resultWinner-prizeList">
+                    <div class="resultWinner-prizeItem mobil">
+                        <div class="resultWinner-prizeItem-image">
+                            <img src="image-mobil.png" />
+                        </div>
+                        <div class="resultWinner-prizeItem-name">1 Unit Daihatsu New Sirion</div>
+                        <div class="resultWinner-prizeItem-winner">IVAN RAHARJA</div>
+                        <div class="resultWinner-prizeItem-phone">0878602xxxxxx</div>
+                        <div class="resultWinner-prizeItem-ktp">No.KTP <span>31741505xxxxxxx</span></div>
+                    </div>
+                    <div class="resultWinner-prizeItem motor">
+                        <div class="resultWinner-prizeItem-image">
+                            <img src="image-motor.png" />
+                        </div>
+                        <div class="resultWinner-prizeItem-name">3 Unit Honda Beat Pop</div>
+                        <div class="resultWinner-prizeItem-winnerList">
+                            <div class="resultWinner-prizeItem-winnerItem">
+                                <div class="resultWinner-prizeItem-winner">IVAN RAHARJA</div>
+                                <div class="resultWinner-prizeItem-phone">0878602xxxxxx</div>
+                                <div class="resultWinner-prizeItem-ktp">No.KTP <span>31741505xxxxxxx</span></div>
+                            </div>
+                            <div class="resultWinner-prizeItem-winnerItem">
+                                <div class="resultWinner-prizeItem-winner">IVAN RAHARJA</div>
+                                <div class="resultWinner-prizeItem-phone">0878602xxxxxx</div>
+                                <div class="resultWinner-prizeItem-ktp">No.KTP <span>31741505xxxxxxx</span></div>
+                            </div>
+                            <div class="resultWinner-prizeItem-winnerItem">
+                                <div class="resultWinner-prizeItem-winner">IVAN RAHARJA</div>
+                                <div class="resultWinner-prizeItem-phone">0878602xxxxxx</div>
+                                <div class="resultWinner-prizeItem-ktp">No.KTP <span>31741505xxxxxxx</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -29,6 +29,20 @@ function sound(src) {
     }    
 }
 
+function showModal(element){
+    $('.jsModal').hide();
+    $('#'+element).show();
+    // document.getElementById("myModal").style.display = "block";     
+}
+
+function closeModal(){
+    $('.jsModal').hide();
+}
+
+function showModalResult(){
+    document.getElementById("jsModalResult").style.display = "block";     
+}
+
 $(document).ready(function () {
     const planeMachine = document.querySelector('#jsSlotMachine');
 
@@ -65,7 +79,7 @@ $(document).ready(function () {
         // $('.jsPrizeWinnerName').html();
         setTimeout(function(){ 
             $('.jsSlotMachineButton').removeClass('is-stop').addClass('is-disabled');
-            showModal();           
+            showModal('jsModalWinner');           
         }, 2000);
 
     }
@@ -109,13 +123,7 @@ $(document).ready(function () {
         $('.jsPrizeTitle').addClass('is-blinking');
     }
 
-    function showModal(){
-        document.getElementById("myModal").style.display = "block";     
-    }
-
-    function closeModal(){
-        document.getElementById("myModal").style.display = "none";
-    }
+    
 
     $('.jsSlotMachineButton').click(function(){        
         if(stateMachine == 'ready'){
@@ -150,6 +158,7 @@ $(document).ready(function () {
 
      $('body').keyup(function(e){
         if(e.keyCode == 32){
+            $('.jsSlotMachineButton').removeClass('is-pressed');
             // user has pressed space
             if(stateMachine == 'start'){
                 selectPrize();
@@ -184,10 +193,14 @@ $(document).ready(function () {
 
         else if( e.keyCode == 8 || e.keyCode == 46 ){
             // user has pressed backspace or del
-            console.log("Waddup");
             if(stateMachine == 'ready'){
                 cancelPrize();
             }
+        }
+
+        else if( e.keyCode == 9){
+            // user has pressed tab
+            showModalResult();
         }
         
      });
@@ -214,6 +227,8 @@ $(document).ready(function () {
     swiperPrize.on('slidePrevTransitionStart', function() { 
         swiperThumbnail.slidePrev();
     });
+
+
 
     
 
