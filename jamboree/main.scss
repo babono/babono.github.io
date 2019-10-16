@@ -1,0 +1,344 @@
+body {
+  margin: 0;
+  font-family: "Source Sans Pro", sans-serif;
+  font-size: 14px;
+}
+
+header {
+  height: 150px;
+  background-color: #2a2a2a;
+  position: fixed;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 20;
+}
+
+.header {
+  &-container {
+    max-width: 1024px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  &-logo {
+    display: flex;
+    justify-content: space-between;
+    height: 150px;
+    align-items: center;
+    .logo-jamboree {
+      width: 25%;
+      img {
+        width: 100%;
+      }
+    }
+    .logo-transmart {
+      width: 25%;
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.form {
+  &-info {
+    padding: 72px 0;
+    margin-top: 150px;
+  }
+  &-container {
+    max-width: 640px;
+    padding: 0 16px;
+    margin: 0 auto;
+  }
+  &-group {
+    margin-bottom: 32px;
+  }
+  &-event {
+    padding: 96px 0;
+    background-image: url(https://jamboree.transmart.co.id/wp-content/uploads/2019/10/background-home-2.png);
+    background-position: center;
+    background-size: cover;
+    .form-container {
+      max-width: 1024px;
+    }
+  }
+  &-confirm {
+    padding: 64px 0;
+    .form-container {
+      max-width: 840px;
+    }
+  }
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  &-wrapper {
+    width: 50%;
+    padding: 16px;
+    &:first-child {
+      width: 20%;
+      padding-left: 0;
+    }
+    &:last-child {
+      width: 30%;
+      padding-right: 0;
+    }
+    select {
+      width: 100%;
+    }
+  }
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 2.5vw;
+  margin-bottom: 36px;
+}
+
+h2 {
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5vw;
+  margin-bottom: 36px;
+  color: white;
+}
+
+label {
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+
+input[type="text"] {
+  width: 100%;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #707070;
+  border-radius: 5px;
+  padding: 12px 16px;
+}
+
+textarea {
+  width: 100%;
+  min-height: 200px;
+  padding: 16px;
+  resize: none;
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #707070;
+  border-radius: 5px;
+}
+
+select {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #707070;
+  border-radius: 5px;
+  &:disabled{
+      background: #E2E2E2;
+      color: #CECECE;
+      border-color: transparent;
+  }
+}
+
+/* The container */
+.radio {
+  display: inline-block;
+  position: relative;
+  padding-left: 28px;
+  margin-right: 32px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+  .checkmark {
+    position: absolute;
+    top: -2px;
+    left: 0;
+    height: 21px;
+    width: 21px;
+    background-color: #eee;
+    border-radius: 50%;
+    border: 2px solid #afbe00;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      top: 4px;
+      left: 4px;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: white;
+    }
+  }
+  &:hover {
+    input ~ .checkmark {
+      background-color: #ccc;
+    }
+  }
+  input:checked ~ .checkmark {
+    background-color: #afbe00;
+    &:after {
+      display: block;
+    }
+  }
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    &:checked {
+      ~ .checkmark {
+        background-color: #afbe00;
+        &:after {
+          display: block;
+        }
+      }
+      ~ .event-thumbnail {
+        img {
+          transform: scale(1.15);
+        }
+        &:after{
+            display: none;
+        }
+      }
+    }
+  }
+  .checkmark {
+    position: absolute;
+    top: calc(50% - 8px);
+    left: 0;
+    height: 20px;
+    width: 20px;
+    border: 2px solid #afbe00;
+    background-color: #eee;
+    &:after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 4px;
+      top: 0;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+  }
+  &:hover {
+    input ~ .checkmark {
+      background-color: #d4dc72;
+    }
+    .event-thumbnail {
+      img {
+        transform: scale(1.15);
+      }
+    }
+  }
+}
+
+.event {
+  &-box {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    padding: 64px 32px 64px 64px;
+    select {
+      width: 100%;
+    }
+  }
+  &-checkbox {
+    width: 35%;
+    flex: 0 0 auto;
+    padding-right: 5%;
+  }
+  &-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  &-thumbnail {
+    width: 100%;
+    height: 0;
+    padding-bottom: 46.25%;
+    position: relative;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transition: all 0.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+    }
+    &:after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.3);
+    }
+  }
+  &-date {
+    width: 18%;
+    flex: 0 0 auto;
+    padding: 0 2%;
+  }
+  &-location {
+    width: 18%;
+    flex: 0 0 auto;
+  }
+  &-time {
+    width: 29%;
+    flex: 0 0 auto;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.font-small{
+    font-size: 14px;
+}
+
+.m-bottom-25{
+    margin-bottom: 25px;
+}
+
+.button-wrapper{
+    text-align: center;
+    margin-top: 40px;;
+}
+
+button{
+    padding: 20px 40px;
+    background-color: #AFBE00;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+}
