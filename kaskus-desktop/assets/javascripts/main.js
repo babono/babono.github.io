@@ -4926,7 +4926,11 @@ $(document).on('click','.jsTabNav',function(){
   })
 
   var hotTopicSwiper = new Swiper('.jsHotTopicSwiper', {
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    navigation: {
+      nextEl: '.jsHotTopicSwiper .jsWidgetButtonNext',
+      prevEl: '.jsHotTopicSwiper .jsWidgetButtonPrev',
+    }
   })
 
   hotTopicSwiper.on('reachEnd', function() {
