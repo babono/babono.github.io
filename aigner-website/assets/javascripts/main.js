@@ -33,6 +33,7 @@ $(document).ready(function () {
     $('.jsHeaderSeachInput').toggleClass('is-active');
   });
 
+
   $(".jsMobileNavItem").on("click", function () {
     if($(this).hasClass('is-active')){
       $(this).removeClass('is-active');
