@@ -4906,7 +4906,11 @@ $(document).on('click','.jsTabNav',function(){
   });
 
   var PodcastSwiper = new Swiper('.jsPodcastSwiper', {
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    navigation: {
+      nextEl: '.jsPodcastSwiper .jsWidgetButtonNext',
+      prevEl: '.jsPodcastSwiper .jsWidgetButtonPrev',
+    }
   })
 
   PodcastSwiper.on('reachEnd', function() {
@@ -4918,11 +4922,19 @@ $(document).on('click','.jsTabNav',function(){
   });
 
   var topCommunitySwiper = new Swiper('.jsTopCommunitySwiper', {
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    navigation: {
+      nextEl: '.jsTopCommunitySwiper .jsWidgetButtonNext',
+      prevEl: '.jsTopCommunitySwiper .jsWidgetButtonPrev',
+    }
   })
   
   var topKreatorSwiper = new Swiper('.jsTopKreatorSwiper', {
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    navigation: {
+      nextEl: '.jsTopKreatorSwiper .jsWidgetButtonNext',
+      prevEl: '.jsTopKreatorSwiper .jsWidgetButtonPrev',
+    }
   })
 
   var hotTopicSwiper = new Swiper('.jsHotTopicSwiper', {
@@ -4963,16 +4975,26 @@ $(document).on('click','.jsTabNav',function(){
 
   $(document).on('click', '.jsThreadCardShare', function() {
     var others = $('.jsThreadCardShare').not(this);
-    others.closest('.jsThreadCard').find('.jsShareBar').removeClass('is-visible');
+    var thisElement = $(this);   
+    setTimeout(function(){ 
+      others.closest('.jsThreadCard').find('.jsShareBar').removeClass("is-visible");    
+    }, 300);
+    others.closest('.jsThreadCard').find('.jsShareBarList').removeClass('is-show');
     if ($(this).closest('.jsThreadCard').find('.jsShareBar').hasClass("is-visible")) {
       $(this).closest('.jsThreadCard').find('.jsShareBar').removeClass("is-visible");
+      $(this).closest('.jsThreadCard').find('.jsShareBarList').removeClass("is-show");
     } else {
       $(this).closest('.jsThreadCard').find('.jsShareBar').addClass("is-visible");
+      $(this).closest('.jsThreadCard').find('.jsShareBarList').addClass("is-show");
     }
   });
 
-  $(document).on("click", ".jsThreadCardShareClose", function(e) {    
-    $(this).closest('.jsShareBar').removeClass('is-visible');
+  $(document).on("click", ".jsThreadCardShareClose", function(e) {   
+    var thisElement = $(this);   
+    thisElement.closest('.jsShareBar').find('.jsShareBarList').removeClass('is-show');
+    setTimeout(function(){ 
+      thisElement.closest('.jsShareBar').removeClass('is-visible');   
+    }, 300);
   });
 
   tippy('.jsTippy', {

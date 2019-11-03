@@ -108,7 +108,7 @@ function display_ht(resp, key)
     if($(ht_id).length == 0)
     {
       $('<div class="hot-thread-list ht_list" id="ht_' + tgl.replace(/ /g, '_') + '"></div>').insertBefore('#ht-loader');
-      $('<div class="Fz(14px) C(c-normal) nightmode_C(#dcdcdc) Fw(b) Px(10px) Pb(15px) Pt(5px) ht_list"><span>'+ tgl+'</span></div>').appendTo(ht_id);
+      $('<div class="Fz(14px) C(#484848) nightmode_C(#dcdcdc) Fw(b) Px(10px) Pb(15px) Pt(5px) ht_list"><span>'+ tgl+'</span></div>').appendTo(ht_id);
       if(ht_flag)
       {
         $('<ul class="list-unstyled"></ul>').appendTo(ht_id);
@@ -120,7 +120,7 @@ function display_ht(resp, key)
       var html = '';
       if(ht_list[i].promoted == "1")
       {
-        html += '<div class="Bdb(BdbThreadItem) nightmode_Bdbc(#000) Bgc(#fff) nightmode_Bgc(c-dark-grey-2)'
+        html += '<div class="Bdb(BdbThreadItem) nightmode_Bdbc(#000) Bgc(#fff) nightmode_Bgc(#171717)'
         if(ht_list[i].promoted_username != '') {
           html += ' Pt(5px)';
         } else {
@@ -143,7 +143,7 @@ function display_ht(resp, key)
           html += '<div class="D(f) Jc(sb)';
           html += '">'+
                 '<div class="D(f) Jc(sb) is-compact-view_M(10px)">'+
-                  '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'">'+
+                  '<a class="C(#484848) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'">'+
                     '<div class="D(f) Jc(fs) Pos(r) Px(10px)">'+
                       '<div class="Fz(12px) C(#9e9e9e) D(n) is-compact-view_D(b)">'+ ht_list[i].promoted_entitlement + '</div>'+
                   '</a>'+
@@ -160,7 +160,7 @@ function display_ht(resp, key)
                   '<div class="Pos(r) Ov(h) Mah(320px) Bgr(nr) Bgz(cv) c-compact__wrapper is-no-image_D(n)">'+
                     '<div class="Pos(r) c-compact__image">'+
                       '<div class="D(b) Pb(52.5%) c-compact__image-wrapper Pos(r) W(100%) Mah(300px) Ov(h) H(0)">'+
-                        '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'' +'">'+
+                        '<a class="C(#484848) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'' +'">'+
                           '<img class="Pos(a) T(0) B(0) W(100%) mls-img" data-src="'+ ht_list[i].image +'" alt="hot-thread-picture" />'+
                         '</a>'+
                       '</div>';
@@ -173,7 +173,7 @@ function display_ht(resp, key)
                       '<div class="Px(10px) is-compact-view_Px(0) Py(10px) is-compact-view_Py(0)">'+
                         '<div class="Fz(14px) Fw(b) is-compact-view_Mih(35px)">'+
                           '<span class="Va(m)">'+
-                            '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url  +'">'+  ht_list[i].title  +'</a>'+
+                            '<a class="C(#484848) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url  +'">'+  ht_list[i].title  +'</a>'+
                           '</span>';
                     if(ht_list[i].stamp) {
                       html += '<span class="D(n) is-no-image_D(ib) Ff(fontVAGBold) Fz(10px) C(#000) Bgc(#f8e71c) Bdrs(5px) Px(5px) Pt(3px) Pb(0)">'+ ht_list[i].stamp +'</span>';
@@ -181,7 +181,7 @@ function display_ht(resp, key)
                     html += '</div>'+
                       '<div class="Fz(13px) Mt(15px) Mb(10px) is-compact-view_D(n)">' + ht_list[i].description + '</div>'+
                       '<div class="Mt(10px) Mb(10px)">'+
-                        '<span class="Va(m)"><a class="C(c-blue) nightmode_C(#fbc160)" href="'+ ht_list[i].url +'">'+ht_list[i].promoted_cta +'</a></span>'+
+                        '<span class="Va(m)"><a class="C(#1998ed) nightmode_C(#fbc160)" href="'+ ht_list[i].url +'">'+ht_list[i].promoted_cta +'</a></span>'+
                       '</div>'+
                     '</div>'+
                   '</div>'+
@@ -193,7 +193,7 @@ function display_ht(resp, key)
       }
       else
       {
-        html += '<div class="Bdb(BdbThreadItem) nightmode_Bdbc(#000) Bgc(#fff) nightmode_Bgc(c-dark-grey-2) Pt(5px) is-compact-view_Pt(5px) ht_list">'+
+        html += '<div class="Bdb(BdbThreadItem) nightmode_Bdbc(#000) Bgc(#fff) nightmode_Bgc(#171717) Pt(5px) is-compact-view_Pt(5px) ht_list">'+
               '<div class="D(f) Jc(sb) M(10px)"><div class="D(f) Jc(fs) Pos(r)">'+
                 '<a href="/profile/'+ ht_list[i].userid +'">'+
                   '<div class="W(35px) H(35px) is-compact-view_W(25px) is-compact-view_H(25px) O(h) Mend(10px) Fx(flex0Auto) is-no-image_D(n) As(c)">'+
@@ -202,17 +202,17 @@ function display_ht(resp, key)
                 '</a>'+
                 '<div class="Fx(flex1Auto) As(c)">'+
                   '<div class="Mb(3px) Fz(13px) Fw(500) Maw(200px) Ov(h) is-compact-view_Mb(0px)">'+
-                    '<a href="/profile/' + ht_list[i].userid + '?ref=htarchive&med=hot_thread" class="C(c-normal)">'+ ht_list[i].username+'</a>'+
+                    '<a href="/profile/' + ht_list[i].userid + '?ref=htarchive&med=hot_thread" class="C(#484848)">'+ ht_list[i].username+'</a>'+
                   '</div>'+
                   '<div class="Fz(12px) C(#9e9e9e)">'+ user_details[ht_list[i].userid].usertitle +'</div>'+
                 '</div>'+
               '</div>'+
-              '<div class="C(c-grey) Fz(14px) W(40px) H(30px) Ta(e) jsShowShare hide jsThreadListShareMenuData jsMoreMenus">'+
+              '<div class="C(#b3b3b3) Fz(14px) W(40px) H(30px) Ta(e) jsShowShare hide jsThreadListShareMenuData jsMoreMenus">'+
                 '<i class="fas fa-ellipsis-h"></i>'+
               '</div>'+
             '</div>'+
             '<div class="Pos(r) jsRevealShare D(n)">'+
-              '<div class="Pos(a) End(10px) W(100%) Maw(200px) P(10px) Mt(5px) Bdrs(1px) Bgc(#fff) Z(10) T(-30px) Bxsh(shadowShare) nightmode_Bgc(c-dark-grey-2) nightmode_C(#dcdcdc) jsShareMenuDiv"'+
+              '<div class="Pos(a) End(10px) W(100%) Maw(200px) P(10px) Mt(5px) Bdrs(1px) Bgc(#fff) Z(10) T(-30px) Bxsh(shadowShare) nightmode_Bgc(#171717) nightmode_C(#dcdcdc) jsShareMenuDiv"'+
                 'data-created="false"'+
                 'data-subscribe-label="hot thread-' + ht_list[i].id + '"'+
                 'data-subscribe-tracking="htarchive"';
@@ -243,7 +243,7 @@ function display_ht(resp, key)
           '<div class="Pos(r) Ov(h) Mah(320px) Bgr(nr) Bgz(cv) c-compact__wrapper is-no-image_D(n)">'+
             '<div class="Pos(r) c-compact__image">'+
               '<div class="D(b) Pb(52.5%) c-compact__image-wrapper Pos(r) W(100%) Mah(300px) Ov(h) H(0)">'+
-                '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'"><img class="Pos(a) T(gbgb0) B(0) W(100%) mls-img" data-src="'+ ht_list[i].image +'" alt="img-1-px" /></a></div>';
+                '<a class="C(#484848) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'"><img class="Pos(a) T(gbgb0) B(0) W(100%) mls-img" data-src="'+ ht_list[i].image +'" alt="img-1-px" /></a></div>';
         if(ht_list[i].stamp) {
           html += '<div class="Pos(a) Bdrs(borderTag) Py(15px) W(50px) H(50px) Ta(c) T(15px) End(15px) Bgc(#f8e71c) Fz(14px) C(#000) Lts(1px) Ff(fontVAGBold) c-compact__tag">'+
                 '<div class="Trf(transform35deg) c-compact__tag-title Tt(u)">'+ ht_list[i].stamp +'</div>'+
@@ -255,7 +255,7 @@ function display_ht(resp, key)
             '<div class="Px(10px) is-compact-view_Px(0) Py(10px) is-compact-view_Py(0)">'+
               '<div class="Fz(14px) Fw(b) is-compact-view_Mih(35px)">'+
                 '<span class="Va(m)">'+
-                  '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'">'+  ht_list[i].title  +'</a>'+
+                  '<a class="C(#484848) nightmode_C(#dcdcdc)" href="'+ ht_list[i].url +'">'+  ht_list[i].title  +'</a>'+
                 '</span>';
         if(ht_list[i].stamp) {
           html += '<span class="D(n) is-no-image_D(ib) Ff(fontVAGBold) Fz(10px) C(#000) Bgc(#f8e71c) Bdrs(5px) Px(5px) Pt(3px) Pb(0)">'+ ht_list[i].stamp.text +'</span>';
@@ -536,17 +536,17 @@ function createThreadlistShareMenuData(elThreadListMenu)
       var subscribeMenuString = '';
       if (is_subscribe == 'true') {
         subscribeMenuString =
-      '<a" href="javascript:void(0);" class="jsSubscribeThreadIcon C(c-normal) nightmode_C(#dcdcdc)" data-type="thread" data-id="' + threadid + '" data-label="' + subscribe_label + '" data-state="unsubscribe" data-category="' + subscribe_tracking + '" ' + buildAdditionalCustomMetricAttr(divMenu) + '>' + window.KASKUS_lang.unsubscribe_button + '</a>';
+      '<a" href="javascript:void(0);" class="jsSubscribeThreadIcon C(#484848) nightmode_C(#dcdcdc)" data-type="thread" data-id="' + threadid + '" data-label="' + subscribe_label + '" data-state="unsubscribe" data-category="' + subscribe_tracking + '" ' + buildAdditionalCustomMetricAttr(divMenu) + '>' + window.KASKUS_lang.unsubscribe_button + '</a>';
       } else {
         subscribeMenuString =
-        '<a href="javascript:void(0);" class="jsSubscribeThreadIcon C(c-normal) nightmode_C(#dcdcdc)" data-type="thread" data-id="' + threadid + '" data-label="' + subscribe_label + '" data-state="subscribe" data-category="' + subscribe_tracking + '" ' + buildAdditionalCustomMetricAttr(divMenu) + '>' + window.KASKUS_lang.subscribe_button + '</a>';
+        '<a href="javascript:void(0);" class="jsSubscribeThreadIcon C(#484848) nightmode_C(#dcdcdc)" data-type="thread" data-id="' + threadid + '" data-label="' + subscribe_label + '" data-state="subscribe" data-category="' + subscribe_tracking + '" ' + buildAdditionalCustomMetricAttr(divMenu) + '>' + window.KASKUS_lang.subscribe_button + '</a>';
       }
       var firstPostButtonString = '';
       if (show_button_first_post == 'true') {
         firstPostButtonString =
           '<div class="D(f) Fz(14px) Py(8px) Ai(c)"> ' +
           '<div class=""><i class="fas fa-chevron-square-down"></i></div> ' +
-          '<a class="D(b) Lh(10px) C(c-normal) nightmode_C(#dcdcdc)" href="' + '/thread/' + threadid + '/' +  slug_title + '?goto=newpost" id="thread_gotonew_' + threadid + '" class="jump goto_newpost" rel="tooltip" title="Go to first new post"> ' +
+          '<a class="D(b) Lh(10px) C(#484848) nightmode_C(#dcdcdc)" href="' + '/thread/' + threadid + '/' +  slug_title + '?goto=newpost" id="thread_gotonew_' + threadid + '" class="jump goto_newpost" rel="tooltip" title="Go to first new post"> ' +
             '<div class="Fz(12px) As(c) Mstart(15px)">' + window.KASKUS_lang.go_first_new_post_button + '</a> ' +
           '</div> ' +
         '</div>';
@@ -561,15 +561,15 @@ function createThreadlistShareMenuData(elThreadListMenu)
     '<div class="Px(10px)"> ' +
       '<div class="Bdt(light-gray-border) D(f) Fz(14px) Py(10px) nightmode_Bdt(night-border)"> ' +
         '<div class=""><i class="fab fa-facebook-square"></i></div> ' +
-        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(c-normal) nightmode_C(#dcdcdc)" target="_blank" href="' + fb_href + '" onclick="share_thread_count( \'' + threadid + '\' ,\'facebook\'); ' +  build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'facebook'", divMenu) + '">' + window.KASKUS_lang.share_facebook_button + '</a></div> ' +
+        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(#484848) nightmode_C(#dcdcdc)" target="_blank" href="' + fb_href + '" onclick="share_thread_count( \'' + threadid + '\' ,\'facebook\'); ' +  build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'facebook'", divMenu) + '">' + window.KASKUS_lang.share_facebook_button + '</a></div> ' +
       '</div> ' +
       '<div class="D(f) Fz(14px) Py(10px)"> ' +
         '<div class=""><i class="fab fa-twitter-square"></i></div> ' +
-        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(c-normal) nightmode_C(#dcdcdc)" target="_blank" href="' + twitter_href + '" onclick="share_thread_count( \'' + threadid + '\', \'twitter\'); ' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'twitter'", divMenu) + '">' + window.KASKUS_lang.share_twitter_button + '</a></div> ' +
+        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(#484848) nightmode_C(#dcdcdc)" target="_blank" href="' + twitter_href + '" onclick="share_thread_count( \'' + threadid + '\', \'twitter\'); ' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'twitter'", divMenu) + '">' + window.KASKUS_lang.share_twitter_button + '</a></div> ' +
       '</div> ' +
       '<div class="D(f) Fz(14px) Py(10px)"> ' +
         '<div class=""><i class="fab fa-whatsapp-square"></i></div> ' +
-        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(c-normal) nightmode_C(#dcdcdc)" href="' + wa_href + '" data-action="share/whatsapp/share" onclick="share_thread_count(\'' + threadid + '\', \'whatsapp\'); ' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'whatsapp'", divMenu) + '">' + window.KASKUS_lang.share_whatsapp_button + '</a></div> ' +
+        '<div class="Fz(12px) As(c) Mstart(15px)"><a class="C(#484848) nightmode_C(#dcdcdc)" href="' + wa_href + '" data-action="share/whatsapp/share" onclick="share_thread_count(\'' + threadid + '\', \'whatsapp\'); ' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'whatsapp'", divMenu) + '">' + window.KASKUS_lang.share_whatsapp_button + '</a></div> ' +
       '</div> ' +
     '</div> ' +
     '<div class="Px(10px)">' +
@@ -577,7 +577,7 @@ function createThreadlistShareMenuData(elThreadListMenu)
       firstPostButtonString +
       '<div class="D(f) Fz(14px) Py(8px) Ai(c)"> ' +
         '<div class=""><i class="fas fa-chevron-square-right"></i></div> ' +
-        '<a class="D(b) Lh(10px) C(c-normal) nightmode_C(#dcdcdc)" href="/lastpost/' + threadid + '#post' + last_post_id + '"> ' +
+        '<a class="D(b) Lh(10px) C(#484848) nightmode_C(#dcdcdc)" href="/lastpost/' + threadid + '#post' + last_post_id + '"> ' +
           '<div class="Fz(12px) As(c) Mstart(15px)">' + window.KASKUS_lang.go_last_post_button + '</div> ' +
         '</a> ' +
       '</div> ' +
@@ -818,14 +818,14 @@ function bindTrhHome() {
 
 	$.each(result.result, function(model_name, thread_data) {
 	  trh_data += '<div class="Bxsh(shadowSeperator) Pos(r) Z(1) H(2px) Bgc(#fff) nightmode_Bgc(#000) ' + model_name + '"' + display_trh + '></div>';
-	  trh_data += '<div class="c-obrolan-section__list Px(10px) Bgc(bgPrimaryColor) nightmode_Bgc(c-dark-grey-2) ' + model_name + '" id="' + model_name + '"' + display_trh + '>';
-	  trh_data += '<div class="D(f) Py(10px)"><div class="W(20px) H(20px) Mend(10px)"><img class="Maw(100%)  W(100%)" src="' + assetsFolderNew + '/images/icon-recommended.svg" alt="recommended-for-you-logo"></div><div class="As(c) Fz(16px) C(c-normal) nightmode_C(#dcdcdc) Fw(b) Ff(fontVAGBold)">';
+	  trh_data += '<div class="c-obrolan-section__list Px(10px) Bgc(bgPrimaryColor) nightmode_Bgc(#171717) ' + model_name + '" id="' + model_name + '"' + display_trh + '>';
+	  trh_data += '<div class="D(f) Py(10px)"><div class="W(20px) H(20px) Mend(10px)"><img class="Maw(100%)  W(100%)" src="' + assetsFolderNew + '/images/icon-recommended.svg" alt="recommended-for-you-logo"></div><div class="As(c) Fz(16px) C(#484848) nightmode_C(#dcdcdc) Fw(b) Ff(fontVAGBold)">';
 	  trh_data += window.KASKUS_LANG.thread_recommendation_title + '</div></div>';
 
 	  $.each(thread_data, function(thread_id, thread_detail) {
 	    trh_data += '<div class="nightmode_Bdbc(#000)">';
 	    trh_data += '<div class="Fz(14px) Fw(b) Py(10px)">';
-	    trh_data += '<a class="C(c-normal) nightmode_C(#dcdcdc)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '"><span class="Va(m)">' + thread_detail['title'] + '</span></a></div></div><div class="W(100%) H(1px) Bgc(white) nightmode_Bgc(#3f3f3f)"></div>';
+	    trh_data += '<a class="C(#484848) nightmode_C(#dcdcdc)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '"><span class="Va(m)">' + thread_detail['title'] + '</span></a></div></div><div class="W(100%) H(1px) Bgc(white) nightmode_Bgc(#3f3f3f)"></div>';
 	  });
 
 	  trh_data += '</div>';
@@ -855,9 +855,9 @@ function bindTrhThreadList() {
       if (result.result !== false) {
         var trh_data = '';
         trh_data += '<div class="Bdb(BdbThreadItem) nightmode_Bdbc(#000)">';
-        trh_data += '<div class="Bgc(#fff) P(10px) nightmode_Bgc(c-dark-grey-2)"><div class="D(f) Jc(sb) Mb(10px)"><div class="D(f) Jc(fs) Ai(c)"><div class="W(20px) H(20px) Mend(10px)">';
+        trh_data += '<div class="Bgc(#fff) P(10px) nightmode_Bgc(#171717)"><div class="D(f) Jc(sb) Mb(10px)"><div class="D(f) Jc(fs) Ai(c)"><div class="W(20px) H(20px) Mend(10px)">';
         trh_data += '<img class="Maw(100%)  W(100%)" src="' + assetsFolderNew + '/images/icon-recommended.svg"  alt="recommended-thread">';
-        trh_data += '</div><div class="As(c) Fz(16px) C(c-normal) Fw(b) nightmode_C(#dcdcdc) Ff(fontVAGBold) Py(2px)">'+ window.KASKUS_LANG.thread_recommendation_title + '</div>';
+        trh_data += '</div><div class="As(c) Fz(16px) C(#484848) Fw(b) nightmode_C(#dcdcdc) Ff(fontVAGBold) Py(2px)">'+ window.KASKUS_LANG.thread_recommendation_title + '</div>';
         trh_data += '</div></div><div class="Pos(r)">';
 
         var empty_model = 0;
@@ -878,11 +878,11 @@ function bindTrhThreadList() {
               trh_exist++;
               trh_data += '<div class="D(f) Jc(fs) ' + thread_detail['border_display'] + ' nightmode_Bdbc(#3f3f3f) Pt(10px) '+ thread_detail['model_name']+'"';
               trh_data += ' style="display: none;"';
-              trh_data += '><div class="Pb(10px) Mih(70px) Fz(13px) W(100%)"><a class="C(c-normal) nightmode_C(#dcdcdc)" href="' + thread_detail['href']
+              trh_data += '><div class="Pb(10px) Mih(70px) Fz(13px) W(100%)"><a class="C(#484848) nightmode_C(#dcdcdc)" href="' + thread_detail['href']
               if (Boolean(thread_detail['ga_track'])) {
                 trh_data += '" onclick="' + thread_detail['ga_track']
               }
-              trh_data += '">' + thread_detail['title'] + '<div class="Fw(500) C(c-dark-grey) nightmode_C(#dcdcdc)"></div>';
+              trh_data += '">' + thread_detail['title'] + '<div class="Fw(500) C(#4a4a4a) nightmode_C(#dcdcdc)"></div>';
               trh_data += '<div class="Mt(10px)"><div class="C(#9e9e9e) Fz(12px)">'+ thread_detail['thread_label'] +'</div></div></a></div>';
               if (Boolean(thread_detail['image_source'])) {
                 trh_data += '<div class="is-no-image_D(n)"><a href="'+ thread_detail['href']+'"><div class="Miw(60px) Mih(60px) W(60px) H(60px) Mstart(10px)"><img src="' + thread_detail['image_source'] + '" alt="' + thread_detail['slug_title'] + '" data-src="' + thread_detail['data-img-src'] + '" class="mls-img W(60px) H(60px)" ></div></a></div>';
@@ -1015,12 +1015,12 @@ function bindSetSubcategoryItem(element) {
   if($('.jsCategoryPersonalizationItem.is-selected').length == 0){
     $('.jsButtonSubscribe').addClass('is-disabled');
     $('.jsButtonSubscribe button').prop('disabled', true);
-    $('.jsButtonSubscribe button').toggleClass('Bgc(#ededed) C(#a4a4a4) Bgc(c-blue) C(c-white)');
+    $('.jsButtonSubscribe button').toggleClass('Bgc(#ededed) C(#a4a4a4) Bgc(#1998ed) C(#ffffff)');
   }
   else if($('.jsCategoryPersonalizationItem.is-selected').length == 1 && $('.jsButtonSubscribe').hasClass('is-disabled')){
     $('.jsButtonSubscribe').removeClass('is-disabled');
     $('.jsButtonSubscribe button').prop('disabled', false);
-    $('.jsButtonSubscribe button').toggleClass('Bgc(#ededed) C(#a4a4a4) Bgc(c-blue) C(c-white)');
+    $('.jsButtonSubscribe button').toggleClass('Bgc(#ededed) C(#a4a4a4) Bgc(#1998ed) C(#ffffff)');
   }
 }
 
@@ -1028,7 +1028,7 @@ function openWhoPosted(el) {
   $('#who-posted-modal').empty();
   var html_view = '<div class="Bgc(transparent) Ta(c) Pos(r) M(a) P(0) W(90%) Miw(300px) Maw(620px) Bdrs(5px) modal-popup-content">' +
             '<div class="Bgc(#e4f5f8) Bdrs(5px) Ta(c) Py(10px) Px(15px) M(marginAuto0) W(92%)">' +
-              '<div class="Pos(r) Ta(end) Fz(14px) nightmode_C(c-dark-grey-2) jsCloseModal">' +
+              '<div class="Pos(r) Ta(end) Fz(14px) nightmode_C(#171717) jsCloseModal">' +
                 '<i class="fas fa-times"></i>' +
               '</div>' +
               '<div class="Px(15px) Maw(420px) M(marginAuto0)">' +
@@ -1036,10 +1036,10 @@ function openWhoPosted(el) {
                   '<img class="W(350px)" src="' + assetsFolderNew + '/images/image-popup-who-posted.svg" alt="header modal">' +
                 '</div>' +
               '</div>' +
-              '<div class="W(100%) Bgc(#fff) M(marginAuto0) Pos(a) Start(0) Bdrs(5px) P(20px) nightmode_Bgc(c-dark-grey-2) Ov(h) nightmode_Bdc(#3f3f3f) nightmode_Bds(s) nightmode_Bdw(1px) jsTabWrapper">' +
+              '<div class="W(100%) Bgc(#fff) M(marginAuto0) Pos(a) Start(0) Bdrs(5px) P(20px) nightmode_Bgc(#171717) Ov(h) nightmode_Bdc(#3f3f3f) nightmode_Bds(s) nightmode_Bdw(1px) jsTabWrapper">' +
                 '<div class="Fw(b) Fz(16px) Mb(10px) nightmode_C(#dcdcdc)">Who Posted</div>' +
                 '<div class="Mah(250px) Ovy(a)">' +
-                  '<div class="D(f) Jc(sb) Ai(c) Fz(13px) C(c-normal) nightmode_C(#dcdcdc) Py(8px)">' +
+                  '<div class="D(f) Jc(sb) Ai(c) Fz(13px) C(#484848) nightmode_C(#dcdcdc) Py(8px)">' +
                     '<div>Username</div>' +
                     '<div class="W(80px)" id="whoposted_total_post">Post</div>' +
                   '</div><div id="whoposted_list_user">';
@@ -1065,7 +1065,7 @@ function openWhoPosted(el) {
         $.each(whoposted_data, function(key, post_info) {
           userData = userDatas[post_info.userid];
           if (typeof userData !== 'undefined' ) {
-            html_view += '<div class="D(f) Jc(sb) Ai(c) Fz(12px) C(c-dark-grey) Py(12px)">' +
+            html_view += '<div class="D(f) Jc(sb) Ai(c) Fz(12px) C(#4a4a4a) Py(12px)">' +
                     '<div class="D(f) Jc(fs) Ai(c)">' +
                       '<div class="Mend(10px) Pos(r)">' +
                         '<img class="W(36px) H(36px) Bdrs(50%)" src="' + userData.profile_picture + '" alt="profile-picture">' +
@@ -1073,14 +1073,14 @@ function openWhoPosted(el) {
                       '</div>' +
                       '<a href="/profile/' + post_info.userid + '" class="D(b) Fx(flex1Auto) Ta(start)">' +
                         '<div class="D(f) Js(fs) Ai(c)">' +
-                          '<div class="Fz(13px) Fw(500) C(c-normal) nightmode_C(#dcdcdc)">' + userData.username + '</div>' +
-                          ((post_info.userid==post_userid) ? '<div class="Bdrs(5px) Bgc(#f8c31c) C(c-normal) Fz(11px) Fw(b) Py(2px) Px(4px) Mstart(5px) Lh(1.4)">TS</div>' : '') +
+                          '<div class="Fz(13px) Fw(500) C(#484848) nightmode_C(#dcdcdc)">' + userData.username + '</div>' +
+                          ((post_info.userid==post_userid) ? '<div class="Bdrs(5px) Bgc(#f8c31c) C(#484848) Fz(11px) Fw(b) Py(2px) Px(4px) Mstart(5px) Lh(1.4)">TS</div>' : '') +
                         '</div>' +
-                        '<div class="Mt(3px) C(#a3a3a3) Fz(11px) nightmode_C(c-grey)">' + userData.user_title + '</div>' +
+                        '<div class="Mt(3px) C(#a3a3a3) Fz(11px) nightmode_C(#b3b3b3)">' + userData.user_title + '</div>' +
                       '</a>' +
                     '</div>' +
-                    '<div class="W(80px) C(c-normal) Fz(12px) Fw(500) Lh(30px) Ta(c) nightmode_C(#dcdcdc)">' +
-                      '<a href="/viewallposts/' + post_info.userid + '?thread_id=' + result.result.thread_id + '&count=' + post_info.total_post + '" class="C(c-normal) nightmode_C(#dcdcdc)">' + post_info.total_post + '</a>' +
+                    '<div class="W(80px) C(#484848) Fz(12px) Fw(500) Lh(30px) Ta(c) nightmode_C(#dcdcdc)">' +
+                      '<a href="/viewallposts/' + post_info.userid + '?thread_id=' + result.result.thread_id + '&count=' + post_info.total_post + '" class="C(#484848) nightmode_C(#dcdcdc)">' + post_info.total_post + '</a>' +
                     '</div>' +
                   '</div>';
           }
@@ -3536,16 +3536,26 @@ $(document).ready(function() {
 
   $(document).on('click', '.jsThreadCardShare', function() {
     var others = $('.jsThreadCardShare').not(this);
-    others.closest('.jsThreadCard').find('.jsShareBar').removeClass('is-visible');
+    var thisElement = $(this);   
+    setTimeout(function(){ 
+      others.closest('.jsThreadCard').find('.jsShareBar').removeClass("is-visible");    
+    }, 300);
+    others.closest('.jsThreadCard').find('.jsShareBarList').removeClass('is-show');
     if ($(this).closest('.jsThreadCard').find('.jsShareBar').hasClass("is-visible")) {
       $(this).closest('.jsThreadCard').find('.jsShareBar').removeClass("is-visible");
+      $(this).closest('.jsThreadCard').find('.jsShareBarList').removeClass("is-show");
     } else {
       $(this).closest('.jsThreadCard').find('.jsShareBar').addClass("is-visible");
+      $(this).closest('.jsThreadCard').find('.jsShareBarList').addClass("is-show");
     }
   });
 
-  $(document).on("click", ".jsThreadCardShareClose", function(e) {    
-    $(this).closest('.jsShareBar').removeClass('is-visible');
+  $(document).on("click", ".jsThreadCardShareClose", function(e) {   
+    var thisElement = $(this);   
+    thisElement.closest('.jsShareBar').find('.jsShareBarList').removeClass('is-show');
+    setTimeout(function(){ 
+      thisElement.closest('.jsShareBar').removeClass('is-visible');   
+    }, 300);
   });
 
   // $(document).on("click", ".jsThreadCardShare", function(e) {
