@@ -23,6 +23,65 @@ $(document).ready(function () {
     }
   });
 
+  Number.prototype.format = function (n, x, s, c) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+      num = this.toFixed(Math.max(0, ~~n));
+
+    return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+  };
+
+  
+  $("#slider-range").slider({
+    range: true,
+    min: 199000,
+    max: 2990000,
+    values: [199000, 2990000],
+    slide: function (event, ui) {
+      $(".jsRangePriceFloor").val(ui.values[0].format(0, 3, '.', ','));
+      $(".jsRangePriceCeiling").val(ui.values[1].format(0, 3, '.', ','));
+    }
+  });
+  
+  $(".jsRangePriceFloor").val($("#slider-range").slider("values", 0).format(0, 3, '.', ','));
+  $(".jsRangePriceCeiling").val($("#slider-range").slider("values", 1).format(0, 3, '.', ','));
+
+
+  $('body').on('click', '.jsFilterBoxTrigger', function () {
+    var others = $('.jsFilterBoxTrigger').not(this);
+    others.closest('.jsFilterBox').removeClass('is-active');
+    if ($(this).closest('.jsFilterBox').hasClass("is-active")) {
+      $(this).closest('.jsFilterBox').removeClass("is-active");
+    } else {
+      $(this).closest('.jsFilterBox').addClass("is-active");
+    }
+  });
+
+  $('body').on('click', '.jsFilterSortDropdownTrigger', function () {
+    if ($(this).closest('.jsFilterSortDropdown').hasClass("is-active")) {
+      $(this).closest('.jsFilterSortDropdown').removeClass("is-active");
+    } else {
+      $(this).closest('.jsFilterSortDropdown').addClass("is-active");
+    }
+  });
+
+  $('body').on('click', '.jsSidebarCategoryDropdownTrigger', function () {
+    if ($(this).closest('.jsSidebarCategoryDropdown').hasClass("is-open")) {
+      $(this).closest('.jsSidebarCategoryDropdown').removeClass("is-open");
+    } else {
+      $(this).closest('.jsSidebarCategoryDropdown').addClass("is-open");
+    }
+  });
+
+  $(".jsFilterSwitch").change(function (e) {
+    if ($(this).is(':checked')) {
+      $('.jsFilterContainer').show();
+    }
+    else {
+      $('.jsFilterContainer').hide();
+    }
+  });
+  
+
   $(".jsHeaderMenuMobile").on("click", function () {  
     $(this).toggleClass('is-close');
     $('.jsMobileNav').toggleClass('is-open');
@@ -84,10 +143,13 @@ $(document).ready(function () {
     if (st > lastScrollTop && st > navbarHeight) {
       // Scroll Down
       $(".jsHeader").addClass("is-sticky");
+      $(".jsSidebar").removeClass("is-down");
+      
     } else {
       // Scroll Up
       if (st + $(window).height() < $(document).height()) {
         $(".jsHeader").removeClass("is-sticky")
+        $(".jsSidebar").addClass("is-down");
       }
     }
 
