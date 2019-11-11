@@ -4894,7 +4894,11 @@ $(document).on('click','.jsTabNav',function(){
   });
 
   var KaskusTvSwiper = new Swiper('.jsKaskusTvSwiper', {
-    slidesPerView: 'auto'
+    slidesPerView: 'auto',
+    navigation: {
+      nextEl: '.jsKaskusTvSwiper .jsWidgetButtonNext',
+      prevEl: '.jsKaskusTvSwiper .jsWidgetButtonPrev',
+    }
   })
 
   KaskusTvSwiper.on('reachEnd', function() {
