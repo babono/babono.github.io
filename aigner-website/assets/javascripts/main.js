@@ -1,15 +1,28 @@
 var lastScrollTop = 0;
 
+function openModal(modalTarget) {
+  $('.jsModal').removeClass('is-open');
+  var modalElement = $('#' + modalTarget);
+  modalElement.addClass('is-open');
+  modalElement.find('.jsModalDialog').addClass('is-animate');
+  $('body').addClass('ov-hidden');
+}
+
+function closeModal() {
+  $('.jsModal').removeClass('is-open is-animate');
+  $('body').removeClass('ov-hidden');
+}
+
 $(document).ready(function () {
-  var newPicksSwiper = new Swiper(".jsNewpicksSwiper", {
+  var productSwiper = new Swiper(".jsProductSwiper", {
     slidesPerView: 2,
     loop: true,
     navigation: {
-      nextEl: ".newpicks .swiper-button-next",
-      prevEl: ".newpicks .swiper-button-prev"
+      nextEl: ".productSwiper .swiper-button-next",
+      prevEl: ".productSwiper .swiper-button-prev"
     },
     pagination: {
-      el: '.newpicks .swiper-pagination',
+      el: '.productSwiper .swiper-pagination',
       type: 'fraction',
       clickable: true
     },
@@ -23,6 +36,28 @@ $(document).ready(function () {
     }
   });
 
+  var productDetailImageSwiper = new Swiper(".jsProductDetailImageSwiper", {
+    loop: true,
+    navigation: {
+      nextEl: ".jsProductDetailImageSwiper .swiper-button-next",
+      prevEl: ".jsProductDetailImageSwiper .swiper-button-prev"
+    },
+    on: {
+      slideChange: function (index) {
+        console.log(productDetailImageSwiper.realIndex);
+        $('.jsProductDetailImageThumbItem').removeClass('is-active');
+        $(".jsProductDetailImageThumbItem:eq(" + (productDetailImageSwiper.realIndex) + ")").addClass('is-active');;
+      }
+    }
+  });
+
+  $(".jsProductDetailImageThumbItem").mouseenter(function () {
+    var index = $(".jsProductDetailImageThumbItem").index($(this))+1;
+    $('.jsProductDetailImageThumbItem').removeClass('is-active');
+    $(this).addClass('is-active');
+    productDetailImageSwiper.slideTo(index, 500, false);
+  });
+
   Number.prototype.format = function (n, x, s, c) {
     var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
       num = this.toFixed(Math.max(0, ~~n));
@@ -31,19 +66,22 @@ $(document).ready(function () {
   };
 
   
-  $("#slider-range").slider({
-    range: true,
-    min: 199000,
-    max: 2990000,
-    values: [199000, 2990000],
-    slide: function (event, ui) {
-      $(".jsRangePriceFloor").val(ui.values[0].format(0, 3, '.', ','));
-      $(".jsRangePriceCeiling").val(ui.values[1].format(0, 3, '.', ','));
-    }
-  });
+  if ($("#slider-range").length > 0 ){
+    $("#slider-range").slider({
+      range: true,
+      min: 199000,
+      max: 2990000,
+      values: [199000, 2990000],
+      slide: function (event, ui) {
+        $(".jsRangePriceFloor").val(ui.values[0].format(0, 3, '.', ','));
+        $(".jsRangePriceCeiling").val(ui.values[1].format(0, 3, '.', ','));
+      }
+    });
+
+    $(".jsRangePriceFloor").val($("#slider-range").slider("values", 0).format(0, 3, '.', ','));
+    $(".jsRangePriceCeiling").val($("#slider-range").slider("values", 1).format(0, 3, '.', ','));
+  }
   
-  $(".jsRangePriceFloor").val($("#slider-range").slider("values", 0).format(0, 3, '.', ','));
-  $(".jsRangePriceCeiling").val($("#slider-range").slider("values", 1).format(0, 3, '.', ','));
 
 
   $('body').on('click', '.jsFilterBoxTrigger', function () {
