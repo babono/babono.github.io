@@ -700,7 +700,33 @@
             </div>
         </div>
     </div>
-</div>	<div class="maincontent">
+</div>	<div class="stickyNav jsStickyNav">
+		<div class="container">
+			<div class="stickyNav-item">
+				<div class="stickyNav-image">
+					<img src="../assets/images/image-product-detail-1.png" />
+				</div>
+				<div class="stickyNav-info">
+					<div class="stickyNav-name" style="color: rgb(202, 165, 172);">GARDA BELT BAG S</div>
+					<div class="stickyNav-total">
+						<div class="stickyNav-price">IDR 4.990.000</div>
+						<div class="stickyNav-note">include tax</div>
+					</div>
+				</div>
+			</div>
+			<div class="stickyNav-action">
+				<div class="stickyNav-button">
+					<button class="btn" onClick="openModal('jsModalReserveAction')">
+						<svg class="icon cart">
+							<use xlink:href="#icon-cart"></use>
+						</svg>
+						<span>Reserve Now</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="maincontent">
 		<div class="container">
 			<section class="productDetail">
 				<div class="productDetail-row">
@@ -737,9 +763,9 @@
 						<div class="productDetail-name">
 							<h1 style="color: rgb(202, 165, 172);">GARDA BELT BAG S</h1>
 						</div>
-						<div class="productDetail-price">IDR 850.000</div>
+						<div class="productDetail-price">IDR 4.990.000</div>
 						<div class="productDetail-priceNote">include tax</div>
-						<div class="productDetail-button">
+						<div class="productDetail-button jsProductDetailButton">
 							<button class="btn" onClick="openModal('jsModalReserveAction')">
 								<svg class="icon cart">
 									<use xlink:href="#icon-cart"></use>
@@ -747,8 +773,28 @@
 								<span>Reserve Now</span>
 							</button>
 						</div>
-						<div class="productDetail-storeAvailability">
-							<a href="#">Check availability in stores</a> 
+						<div class="productDetail-store">
+							<div class="storebox jsStoreBox">
+								<div class="storebox-trigger jsStoreBoxTrigger">Check availability in stores</div>
+								<div class="storebox-content">
+									<div class="storebox-wrapper">
+										<div class="storebox-head">Product availability in stores</div>
+										<div class="storebox-text">The product is currently in stock in the following stores:</div>
+										<ul class="storebox-list">
+											<li class="storebox-item">
+												<div class="storebox-name">Plaza Indonesia</div>
+												<div class="storebox-address">Jl MH Thamrin Kav 28-30</div>
+												<div class="storebox-phone">021-29963940</div>
+											</li>
+											<li class="storebox-item">
+												<div class="storebox-name">Paris Van Java</div>
+												<div class="storebox-address">Jl Sukajadi No. 131-139</div>
+												<div class="storebox-phone">022-573947930</div>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="productDetail-variant">
 							<div class="productDetail-variant-text">Also Available in These Colors</div>

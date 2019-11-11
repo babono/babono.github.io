@@ -110,6 +110,14 @@ $(document).ready(function () {
     }
   });
 
+  $('body').on('click', '.jsStoreBoxTrigger', function () {
+    if ($(this).closest('.jsStoreBox').hasClass("is-open")) {
+      $(this).closest('.jsStoreBox').removeClass("is-open");
+    } else {
+      $(this).closest('.jsStoreBox').addClass("is-open");
+    }
+  });
+
   $(".jsFilterSwitch").change(function (e) {
     if ($(this).is(':checked')) {
       $('.jsFilterContainer').show();
@@ -166,6 +174,9 @@ $(document).ready(function () {
   setInterval(function () {
     if (didScroll) {
       hasScrolled();
+      if ($('.jsStickyNav').length > 0){
+        stickyNav();
+      }
       didScroll = false;
     }
   }, 250);
@@ -192,6 +203,19 @@ $(document).ready(function () {
     }
 
     lastScrollTop = st;
+  }
+
+  function stickyNav() {
+    var st = $(this).scrollTop();
+    var batasButtonScroll = $('.jsProductDetailButton').offset().top + $('.jsProductDetailButton').outerHeight();
+    console.log(batasButtonScroll);
+    if (st > batasButtonScroll) {
+      // Scroll Down
+      $(".jsStickyNav").addClass("is-sticky");
+    } else {
+      // Scroll Up
+      $(".jsStickyNav").removeClass("is-sticky")
+    }
   }
 });
 
