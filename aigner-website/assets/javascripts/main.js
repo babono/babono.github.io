@@ -36,6 +36,18 @@ $(document).ready(function () {
     }
   });
 
+  var datePicker = flatpickr(".jsReservationDatepicker",{
+    
+    enableTime: true,
+    dateFormat: "Y-m-d H:i",
+    altInput: true,
+    altFormat: "l, F j Y h:i K",
+    onChange: function (selectedDates, dateStr, instance) {
+      $(instance.input).closest('.jsReservationDatepickerContainer').next().show()
+    }
+    
+  });
+
   var productDetailImageSwiper = new Swiper(".jsProductDetailImageSwiper", {
     loop: true,
     navigation: {
@@ -124,6 +136,32 @@ $(document).ready(function () {
     }
     else {
       $('.jsFilterContainer').hide();
+    }
+  });
+
+  $(".jsReservationEmailInput").blur(function () {
+    if($(this).val() !== ''){
+      $(this).closest('.jsReservationEmail').addClass('is-valid');
+      $('.jsReservationFormStepDefault').hide();
+      $('.jsReservationFormStepRegister').show();
+      if($(this).val() == 'babono@transdigital.co.id'){
+        $('.jsReservationFormStepRegister').hide();
+        $('.jsReservationFormStepLogin').show();
+      }
+    }
+    else{
+      $(this).closest('.jsReservationEmail').removeClass('is-valid');
+      $('.jsReservationForm').hide();
+      $('.jsReservationFormStepDefault').show();
+    }
+  });
+
+  $(".jsReservationRegisterCheckbox").change(function (e) {
+    if ($(this).is(':checked')) {
+      $('.jsFormStepRegisterPassword').show();
+    }
+    else {
+      $('.jsFormStepRegisterPassword').hide();
     }
   });
   
