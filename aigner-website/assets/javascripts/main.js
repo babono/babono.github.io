@@ -36,6 +36,14 @@ $(document).ready(function () {
     }
   });
 
+  var keylooksSwiper = new Swiper(".jsKeylooksSwiper", {
+    loop: true,
+    navigation: {
+      nextEl: ".keylooks-swiper .swiper-button-next",
+      prevEl: ".keylooks-swiper .swiper-button-prev"
+    }
+  });
+
   var datePicker = flatpickr(".jsReservationDatepicker",{
     
     enableTime: true,
