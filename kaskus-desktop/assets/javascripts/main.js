@@ -4098,7 +4098,8 @@ $( ".jsButtonBlockedHeader" ).hover(
 
     $( ".flyout__trigger" )
       .on( "mouseenter", function() {
-        $(".flyout__anchor").show();
+		$(".flyout__anchor").show();
+		$(this).addClass('is-active');
         toggleOverlay();
 
       	if($('.flyout__tab__pane > .flyout__category__list').length > 0 && $('.flyout__tab__pane > .flyout__category__list')[0].scrollHeight > $('.flyout__tab__pane > .flyout__category__list').height()){
@@ -4109,7 +4110,8 @@ $( ".jsButtonBlockedHeader" ).hover(
   	  	}
       })
       .on( "mouseleave", function() {
-        $(".flyout__anchor").hide();
+		$(".flyout__anchor").hide();
+		$(this).removeClass('is-active');
         toggleOverlay();
       });
 
@@ -5385,9 +5387,13 @@ $(document).on('click','.jsTabNav',function(){
     if ($('.toggleMenu').hasClass('is-visible')) {
       $('.toggleMenu').removeClass('is-visible');
       $('.jsNavHeaderOverlay').hide();
+      $('.jsUserMenu').removeClass('is-active');
+      $('.jsNotificationMenu').removeClass('is-active');
+      
     } else {
       $(this).next().toggleClass("is-visible");
       toggleOverlay();
+      $('.jsUserMenu').addClass('is-active');
     }
   });
 
@@ -5395,9 +5401,12 @@ $(document).on('click','.jsTabNav',function(){
     if ($('.toggleMenu').hasClass('is-visible')) {
       $('.toggleMenu').removeClass('is-visible');
       $('.jsNavHeaderOverlay').hide();
+      $('.jsNotificationMenu').removeClass('is-active');
+      $('.jsUserMenu').removeClass('is-active');
     } else {
       $(this).next().toggleClass("is-visible");
       toggleOverlay();
+      $('.jsNotificationMenu').addClass('is-active');
     }
   });
 
@@ -5412,7 +5421,9 @@ $(document).on('click','.jsTabNav',function(){
       $('.jsMentionContainer').removeClass('is-visible');
       $('.jsButtonMention').removeAttr('style');
       $('.jsUserDropdownMenu').removeClass('is-visible');
+      $('.jsUserMenu').removeClass('is-active');
       $('.jsNotificationDropdownMenu').removeClass('is-visible');
+      $('.jsNotificationMenu').removeClass('is-active');
       $(".jsSearchSticky").removeClass("is-clicked");
       if ($('.jsNavHeaderOverlay').css('display') == 'block') {
         $('.jsNavHeaderOverlay').hide();
