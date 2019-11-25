@@ -3327,14 +3327,14 @@ function fetch_more_thread_showcase() {
 }
 
 // bind vote
-$jQ('#threadlist_visualita, #hotthread_visualita').on('click', '.vote-thread', function(e){
-	var source = $jQ(this);
+$('#threadlist_visualita, #hotthread_visualita').on('click', '.vote-thread', function(e){
+	var source = $(this);
 	let post_id = source.data('postid');
 	let user_id = source.data('userid');
 	let post_user_id = source.data('postuserid');
 	let status = source.data('status-vote');
-	let security_token = $jQ('#securitytoken').val();
-	$jQ.ajax({
+	let security_token = $('#securitytoken').val();
+	$.ajax({
 		url: KASKUS_URL + '/give_vote/' + post_id,
 		type: 'POST',
 		dataType: 'json',
@@ -3346,14 +3346,14 @@ $jQ('#threadlist_visualita, #hotthread_visualita').on('click', '.vote-thread', f
 			withCredentials: true
 		},
 		success: function(resp){
-			$jQ('#securitytoken').val(resp.securitytoken);
+			$('#securitytoken').val(resp.securitytoken);
 			if (resp.result == true) {
 				if (status == 1) {
 					toggleUpVote(source, resp);
 				} else {
 					toggleDownVote(source, resp);
 				}
-				$jQ('#total-vote-' + post_id).text(resp.total_vote);
+				$('#total-vote-' + post_id).text(resp.total_vote);
 				showBottomToast(resp.message, 2000);
 			} else {
 				showBottomToast(resp.message_return, 2000);
@@ -3369,8 +3369,8 @@ $jQ('#threadlist_visualita, #hotthread_visualita').on('click', '.vote-thread', f
 function toggleUpVote(source, resp = null) {
 	if(resp === null)
 	{
-		$jQ(".is-up-vote", source).toggleClass("active");
-		$jQ(".fa-arrow-up", source).toggleClass("C(c-green)");
+		$(".is-up-vote", source).toggleClass("active");
+		$(".fa-arrow-up", source).toggleClass("C(c-green)");
 		var targetParent = source.parents(".vote-wrapper");
 		targetParent.find(".is-down-vote").removeClass("active");
 		targetParent.find(".fa-arrow-down").removeClass("C(c-red)");
@@ -3408,7 +3408,7 @@ function doToggleUpVote(source, resp) {
 function toggleDownVote(source, resp = null) {
 	if(resp === null)
 	{
-		$jQ(".is-down-vote", source).toggleClass("active");
+		$(".is-down-vote", source).toggleClass("active");
 		var targetParent = source.parents(".vote-wrapper");
 		targetParent.find(".is-up-vote").removeClass("active");
 		targetParent.find(".fa-arrow-up").removeClass("C(c-green)");

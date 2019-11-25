@@ -490,8 +490,8 @@ function display_oh(resp, key) {
   init_div_lazyload();
 }
 
-var instaMutationObserver;
-var mutationObserverOptions = {'attributes':true, 'characterData':false, 'attributeFilter':['class'], 'childList':false, subtree:false};
+var divMutationObserver;
+var divMutationObserverOptions = {'attributes':true, 'characterData':false, 'attributeFilter':['class'], 'childList':false, subtree:false};
 function fetch_lazyload_div(el)
 {
   var src = $(el).data('src');
@@ -499,12 +499,12 @@ function fetch_lazyload_div(el)
 }
 
 function init_div_lazyload() {
-  if (typeof instaMutationObserver !== 'undefined') {
-    instaMutationObserver.disconnect();
+  if (typeof divMutationObserver !== 'undefined') {
+    divMutationObserver.disconnect();
   }
   var lazyList = document.querySelectorAll(".mls-div-img");
   if (lazyList.length !== 0) {
-    instaMutationObserver = new MutationObserver(
+    divMutationObserver = new MutationObserver(
       function(mutations, mo) {
         if (mutations.length > 1) {
           fetch_lazyload_div(mutations[0].target)
@@ -512,7 +512,7 @@ function init_div_lazyload() {
       }
     );
     for (var i = 0; i < lazyList.length; i++) {
-      instaMutationObserver.observe(lazyList[i], mutationObserverOptions);
+      divMutationObserver.observe(lazyList[i], divMutationObserverOptions);
     }
   }
 }
@@ -845,34 +845,39 @@ function bindTrhHome() {
   if ($('#recommended-trh-home').length > 0) {
     $.get(url_recommendation, function(result){
       if (typeof result !== 'object') {
-	result = $.parseJSON(result);
+  result = $.parseJSON(result);
       }
 
       if (result.result !== false) {
-	var trh_data = '';
-	var display_trh = '';
+  var trh_data = '';
+  var display_trh = '';
 
-	$.each(result.result, function(model_name, thread_data) {
-	  trh_data += '<div class="Bxsh(shadowSeperator) Pos(r) Z(1) H(2px) Bgc(#fff) nightmode_Bgc(#000) ' + model_name + '"' + display_trh + '></div>';
-	  trh_data += '<div class="c-obrolan-section__list Px(10px) Bgc(bgPrimaryColor) nightmode_Bgc(#171717) ' + model_name + '" id="' + model_name + '"' + display_trh + '>';
-	  trh_data += '<div class="D(f) Py(10px)"><div class="W(20px) H(20px) Mend(10px)"><img class="Maw(100%)  W(100%)" src="' + assetsFolderNew + '/images/icon-recommended.svg" alt="recommended-for-you-logo"></div><div class="As(c) Fz(16px) C(#484848) nightmode_C(#dcdcdc) Fw(b) Ff(fontVAGBold)">';
-	  trh_data += window.KASKUS_LANG.thread_recommendation_title + '</div></div>';
+  $.each(result.result, function(model_name, thread_data) {
+    trh_data += '<div class="' + model_name + '"' + display_trh + '></div>';
+    trh_data += '<div class="Bgc(c-lightgrey) nightmode_Bgc(c-dark-grey-2) ' + model_name + '" id="' + model_name + '"' + display_trh + '>';
+    trh_data += '<div class="D(f) Px(16px) Pt(20px) Ai(c) Jc(sb)"><div class="D(f) Ai(c)"><div class="W(20px) H(20px) Mend(10px)"><img class="Maw(100%) W(100%)" src="' + assetsFolderNew + '/images/icon-recommended.svg" alt="recommended-for-you-logo"></div><div class="As(c) Fz(16px) C(c-normal) Fw(b) nightmode_C(c-primary-night) Ff(fontVAGBold) Py(2px)">';
+    trh_data += window.KASKUS_LANG.thread_recommendation_title + '</div></div></div><div class="Px(10px)">';
 
-	  $.each(thread_data, function(thread_id, thread_detail) {
-	    trh_data += '<div class="nightmode_Bdbc(#000)">';
-	    trh_data += '<div class="Fz(14px) Fw(b) Py(10px)">';
-	    trh_data += '<a class="C(#484848) nightmode_C(#dcdcdc)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '"><span class="Va(m)">' + thread_detail['title'] + '</span></a></div></div><div class="W(100%) H(1px) Bgc(white) nightmode_Bgc(#3f3f3f)"></div>';
-	  });
+    var countTrhThread = Object.keys(thread_data).length;
+    var indexTrhThread = 1;
+    var borderClass = 'Bdb(dark-gray-border) nightmode_Bdb(night-border)';
+    $.each(thread_data, function(thread_id, thread_detail) {
+      if (indexTrhThread++ >= countTrhThread) {
+        borderClass = '';
+      }
+      trh_data += '<div class="Px(6px) Py(10px) Pos(r) ' + borderClass + '">';
+      trh_data += '<a class="Fw(500) C(c-primary) nightmode_C(c-primary-night) Fz(15px) Mb(10px)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '">' + thread_detail['title'] + '</a></div>';
+    });
 
-	  trh_data += '</div>';
-	  display_trh = ' style="display: none;"';
-	});
+    trh_data += '</div>';
+    display_trh = ' style="display: none;"';
+  });
 
-	$('#recommended-trh-home').replaceWith(trh_data);
+  $('#recommended-trh-home').replaceWith(trh_data);
 
-	if (Object.keys(result.result).length > 1) {
-	  dataLayer.push({'event': 'optimize.activate'});
-	}
+  if (Object.keys(result.result).length > 1) {
+    dataLayer.push({'event': 'optimize.activate'});
+  }
       }
     });
   }
@@ -2340,6 +2345,368 @@ $(document).ready(function(){
 });
 
 
+var topicDetailThreadLoading = false;
+
+function bindTopicDetailThreadNext() {
+  if ($('#trigger-hot-topic-thread').length > 0) {
+    window.addEventListener("resize", fetch_more_topic_detail_thread, {
+      passive: !0
+    });
+    window.addEventListener("scroll", fetch_more_topic_detail_thread, {
+      passive: !0
+    });
+    window.addEventListener("touch", fetch_more_topic_detail_thread, {
+      passive: !0
+    });
+    window.addEventListener("click", fetch_more_topic_detail_thread, {
+      passive: !0
+    });
+  }
+}
+
+function removeTopicDetailThreadAutoload() {
+  window.removeEventListener("resize", fetch_more_topic_detail_thread);
+  window.removeEventListener("scroll", fetch_more_topic_detail_thread);
+  window.removeEventListener("touch", fetch_more_topic_detail_thread);
+  window.removeEventListener("click", fetch_more_topic_detail_thread);
+  $('#trigger-hot-topic-thread').hide();
+}
+
+function fetch_more_topic_detail_thread() {
+  var anchor = $('#trigger-hot-topic-thread');
+  if (topicDetailThreadLoading || !isElementInViewport(anchor)) {
+    return;
+  }
+  topicDetailThreadLoading = true;
+  var cursor = anchor.attr('data-cursor');
+  var url = anchor.attr('data-topic-url');
+  $.ajax({
+    url: WAP_KASKUS_URL + '/threadshowcase/show_more/' + url,
+    type: 'POST',
+    data: {
+      cursor: cursor
+    },
+    xhrFields: {
+      withCredentials: true
+    },
+    success: function (response) {
+      if (typeof response !== 'object') {
+        response = $.parseJSON(response);
+      }
+
+      var threadList = response.threadList;
+      if (response.error != 0 || threadList.length == 0) {
+        topicDetailThreadLoading = false;
+        removeTopicDetailThreadAutoload();
+      }
+
+      var templateHtml = $('.hot-topic-base').html();
+      var threadListHtml = '';
+      for (var key in threadList) {
+        iconColor = 'subscribe' == threadList[key].subcriptionState ? ' C(c-normal)' : ' C(#f8c31c)';
+        if (threadList[key].metaImages) {
+          divMetaImages = '<div style="background-image:url(' + threadList[key].metaImages;
+          divMetaImages += ')" class="Fx(flexZero) W(88px) H(88px) Mstart(10px) Bdrs(5px) Bdrsbstart(0) Bgz(cv) Bgp(c) "></div>';
+        }
+        threadListHtml += templateHtml.replace(/{{postUserId}}/g, threadList[key].postUserId)
+        .replace(/{{postUsername}}/g, threadList[key].postUsername)
+        .replace(/{{threadId}}/g, threadList[key].threadId)
+        .replace(/{{subcriptionState}}/g, threadList[key].subcriptionState)
+        .replace(/{{forumId}}/g, threadList[key].forumId)
+        .replace(/{{threadTitle}}/g, threadList[key].threadTitle)
+        .replace(/{{userId}}/g, threadList[key].userId)
+        .replace(/{{langSubscription}}/g, threadList[key].langSubscription)
+        .replace(/{{threadTitleSlug}}/g, threadList[key].threadTitleSlug)
+        .replace(/{{langFirstNewPostButton}}/g, threadList[key].langFirstNewPostButton)
+        .replace(/{{threadLastPostId}}/g, threadList[key].threadLastPostId)
+        .replace(/{{langLastPostButton}}/g, threadList[key].langLastPostButton)
+        .replace(/{{activeUpVoteState}}/g, threadList[key].activeUpVoteState)
+        .replace(/{{firstPostId}}/g, threadList[key].firstPostId)
+        .replace(/{{vote}}/g, threadList[key].vote)
+        .replace(/{{activeDownVoteState}}/g, threadList[key].activeDownVoteState)
+        .replace(/{{threadViewCount}}/g, threadList[key].threadViewCount)
+        .replace(/{{threadReplyCount}}/g, threadList[key].threadReplyCount)
+        .replace(/{{fbSharedUrl}}/g, threadList[key].fbSharedUrl)
+        .replace(/{{fbDataUrl}}/g, threadList[key].fbDataUrl)
+        .replace(/{{twitterSharedUrl}}/g, threadList[key].twitterSharedUrl)
+        .replace(/{{forumName}}/g, threadList[key].forumName)
+        .replace(/{{forumParentId}}/g, threadList[key].forumParentId)
+        .replace(/{{forumParentName}}/g, threadList[key].forumParentName)
+        .replace(/{{channelId}}/g, threadList[key].channelId)
+        .replace(/{{channelName}}/g, threadList[key].channelName)
+        .replace(/{{whatsappSharedUrl}}/g, threadList[key].whatsappSharedUrl)
+        .replace(/{{fbMessengerSharedUrl}}/g, threadList[key].fbMessengerSharedUrl)
+        .replace(/{{shortThreadUrl}}/g, threadList[key].shortThreadUrl)
+        .replace(/{{iconColor}}/g, iconColor)
+        .replace(/{{topicName}}/g, threadList[key].topicName)
+        .replace(/{{topicId}}/g, threadList[key].topicId)
+        .replace(/{{metaImages}}/g, divMetaImages);
+      }
+      $('#threadlist_visualita .hot-topic-base').before(threadListHtml);
+      anchor.attr('data-cursor', response.nextCursor);
+      topicDetailThreadLoading = false;
+      bindSubscribeButton();
+      bindOpenWhoPosted();
+    },
+    error: function () {
+      topicDetailThreadLoading = false;
+      removeTopicDetailThreadAutoload();
+    }
+  });
+}
+
+function createHorizontalShareMenu(elShareBar) {
+  var shareDataEl = elShareBar.find('.jsShareData');
+  if (shareDataEl.attr('data-created') == 'false') {
+    var fb_href = shareDataEl.attr('data-fb-href');
+    var fb_url = shareDataEl.attr('data-fb-url');
+    var twitter_href = shareDataEl.attr('data-twitter-href');
+    var threadid = shareDataEl.attr('data-threadid');
+    var forum_id = shareDataEl.attr('data-forum-id');
+    var title = decodeURIComponentSafe(shareDataEl.attr('data-title')).replace('&#92;', "");
+    var wa_href = shareDataEl.attr('data-wa-href');
+    var fb_msg_href = shareDataEl.attr('data-fb-msg-href');
+    var thread_short_url = shareDataEl.attr('data-short-thread-url');
+
+    if (shareDataEl.attr('data-type') == 'hot-topic-detail') {
+      var font_size = 'Fz(15px)';
+      var custom_dimension = {'topicName': shareDataEl.attr('data-topic-name'), 'topicId': shareDataEl.attr('data-topicid')};
+      var category = 'topic detail';
+    } else {
+      var font_size = 'Fz(18px)';
+      var custom_dimension = {};
+      var category = forum_id + " " + title;
+    }
+    var elString =
+    '<a href="javascript:void(0);" class="nightmode_C(c-secondary-night) C(c-facebook)  Mend(15px) Fz(14px)" data-url="' + fb_url + '" data-threadid="' + threadid + '" onclick="threadlist_facebook_share(\'' + fb_url + '\', \'' + threadid + '\');' + build_ga_custom_track_share_thread(category, "share thread", "facebook", shareDataEl, custom_dimension) + '" class="C(c-facebook) C(c-facebook-hover):h Mend(15px) ' + font_size + '" >' +
+    '<i class="fab fa-facebook-f"></i>' +
+    '</a>' +
+    '<a target="_blank" class="nightmode_C(c-secondary-night) C(c-facebook-messenger)  Mend(15px) Fz(14px)" href="' + fb_msg_href + '" data-threadid="' + threadid + '" onclick="threadlist_share_count(\'' + threadid + '\', \'facebook-messenger\');' + build_ga_custom_track_share_thread(category, "share thread", "facebook-messenger", shareDataEl, custom_dimension) + '" class="C(c-facebook-messenger) C(c-facebook-messenger-hover):h Mx(15px) ' + font_size + '">' +
+    '<i class="fab fa-facebook-messenger"></i>' +
+    '</a>' +
+    '<a target="_blank" class="nightmode_C(c-secondary-night) C(c-whatsapp)  Mend(15px) Fz(14px)" href="' + wa_href +  '" data-threadid="' + threadid + '" onclick="threadlist_share_count(\'' + threadid + '\', \'whatsapp\');' + build_ga_custom_track_share_thread(category, "share thread", "whatsapp", shareDataEl, custom_dimension) + '" class="C(c-whatsapp) C(c-whatsapp-hover):h Mx(15px) ' + font_size + '">' +
+    '<i class="fab fa-whatsapp"></i>' +
+    '</a>' +
+    '<a target="_blank" class="nightmode_C(c-secondary-night) C(c-twitter)  Mend(15px) Fz(14px)" href="' + twitter_href +  '" data-threadid="' + threadid + '" onclick="threadlist_share_count(\'' + threadid + '\', \'twitter\');' + build_ga_custom_track_share_thread(category, "share thread", "twitter", shareDataEl, custom_dimension) + '" class="C(c-twitter) C(c-twitter-hover):h Mx(15px) ' + font_size + '"> ' +
+    '<i class="fab fa-twitter"></i>' +
+    '</a>' +
+    '<input class="shared_url' + threadid + '" type="hidden" value="'+ thread_short_url +'">' +
+    '<a href="javascript:void(0);" class="nightmode_C(c-secondary-night) C(c-primary)  Mend(15px) Fz(14px)" onclick="shareUrl(\'' + threadid + '\');' + build_ga_custom_track_share_thread(category, "share thread", "link", shareDataEl, custom_dimension) + '" class="copy_button' + threadid + ' C(c-primary) C(c-tertiary):h Mx(15px) ' + font_size + '">' +
+    '<i class="far fa-link"></i>' +
+    '</a>';
+    shareDataEl.attr('data-created', 'true');
+    elShareBar.find('.shareBar-list').append(elString);
+  }
+}
+
+function shareUrl(id) {
+  new ClipboardJS(".copy_button" + id, {
+    text: function() {
+      return document.querySelector(".shared_url" + id).value
+    }
+  });
+
+  showNotice("Link Tersalin", 2000)
+}
+
+// bind vote
+$('#threadlist_visualita, #hotthread_visualita').on('click', '.vote-thread', function(e){
+  var source = $(this);
+  let post_id = source.data('postid');
+  let user_id = source.data('userid');
+  let post_user_id = source.data('postuserid');
+  let status = source.data('status-vote');
+  let security_token = $('#securitytoken').val();
+  $.ajax({
+    url: WAP_KASKUS_URL + '/give_vote/' + post_id,
+    type: 'POST',
+    dataType: 'json',
+    data: {
+      status: status,
+      securitytoken: security_token
+    },
+    xhrFields: {
+      withCredentials: true
+    },
+    success: function(resp){
+      $('#securitytoken').val(resp.securitytoken);
+      if (resp.result == true) {
+        if (status == 1) {
+          toggleUpVote(source, resp);
+        } else {
+          toggleDownVote(source, resp);
+        }
+        $('#total-vote-' + post_id).text(resp.total_vote);
+        showNotice(resp.message, 2000);
+      } else {
+        showNotice(resp.message_return, 2000);
+      }
+    },
+    error: function(xhr){
+
+    }
+  });
+  return false;
+}); 
+
+function bindVoteButton()
+{
+  $('body').on('click', '.vote-thread', function(e){
+    var source = $(this);
+    let post_id = source.data('postid');
+    let user_id = source.data('userid');
+    let post_user_id = source.data('postuserid');
+    let status = source.data('status-vote');
+    let security_token = $('#securitytoken').val();
+    $.ajax({
+      url: WAP_KASKUS_URL + '/give_vote/' + post_id,
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        status: status,
+        securitytoken: security_token
+      },
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function(resp){
+        $('#securitytoken').val(resp.securitytoken);
+        if (resp.result == true) {
+          if (status == 1) {
+            toggleUpVote(source, resp);
+          } else {
+            toggleDownVote(source, resp);
+          }
+          $('#total-vote-' + post_id).text(resp.total_vote);
+          showNotice(resp.message, 2000);
+        } else {
+          showNotice(resp.message_return, 2000);
+        }
+      },
+      error: function(xhr){
+
+      }
+    });
+    return false;
+  });
+}
+
+function toggleUpVote(source, resp = null) {
+  if(resp === null)
+  {
+    $(".is-up-vote", source).toggleClass("active");
+    $(".fa-arrow-up", source).toggleClass("C(c-green)");
+    var targetParent = source.parents(".vote-wrapper");
+    targetParent.find(".is-down-vote").removeClass("active");
+    targetParent.find(".fa-arrow-down").removeClass("C(c-red)");
+  }
+  else
+  {
+    doToggleUpVote(source, resp);
+    return;
+  }
+};
+
+function doToggleUpVote(source, resp) {
+  source.toggleClass('active');
+  source.find('.fa-arrow-up').toggleClass('C(c-green)');
+
+  var wrapper = source.closest(".vote-wrapper");
+  var last_status = 0;
+
+  if (wrapper.find('.fa-arrow-down').hasClass('C(c-red)')) {
+    wrapper.find(".fa-arrow-down").removeClass("C(c-red)");
+    wrapper.find(".is-down-vote").removeClass('active');
+    last_status = -1;
+  }
+  wrapper.find('.vote-value').html(resp.upvote-resp.downvote);
+
+  ga_custom_track_vote(source, resp, last_status);
+
+  var bata_href = wrapper.find(".is-down-vote");
+  if (!bata_href.hasClass('vote-thread'))
+  {
+    bata_href.addClass('vote-thread');
+  }
+}
+
+function toggleDownVote(source, resp = null) {
+  if(resp === null)
+  {
+    $(".is-down-vote", source).toggleClass("active");
+    var targetParent = source.parents(".vote-wrapper");
+    targetParent.find(".is-up-vote").removeClass("active");
+    targetParent.find(".fa-arrow-up").removeClass("C(c-green)");
+  }
+  else
+  {
+    doToggleDownVote(source, resp);
+    return;
+  }
+};
+
+function doToggleDownVote(source, resp) {
+  source.toggleClass('active');
+  source.find('.fa-arrow-down').toggleClass('C(c-red)');
+
+  var wrapper = source.closest(".vote-wrapper");
+  var last_status = 0;
+
+  if (wrapper.find(".fa-arrow-up").hasClass('C(c-green)')) {
+    wrapper.find(".is-up-vote").removeClass('active');
+    wrapper.find(".fa-arrow-up").removeClass('C(c-green)');
+    last_status = 1;
+  }
+  wrapper.find('.vote-value').html(resp.upvote-resp.downvote);
+
+  ga_custom_track_vote(source, resp, last_status);
+
+  if (resp.disable_bata == true)
+  {
+    source.removeClass('vote-thread');
+  }
+}
+
+function ga_custom_track_vote(source, resp, last_status) {
+  var category = source.attr('data-category');
+  var status = source.attr('data-status-vote');
+  var postId = source.attr('data-postid');
+  var userId = source.attr('data-userid');
+  var userIdHit = source.attr('data-postuserid');
+  var wrapper = source.closest(".vote-wrapper");
+  var threadCendol = 0;
+  var threadBata = 0;
+
+  let obj = {
+    'event': 'trackEvent',
+    'eventDetails.category': category,
+    'eventDetails.label': postId,
+    'userID': userId,
+    'userIDHit': userIdHit,
+    'postID': postId
+  };
+
+  if (last_status != 0) {
+    obj['eventDetails.action'] = (last_status < 0 ? 'cendol' : 'bata');
+    obj['threadCendol'] = (last_status > 0 ? '-1' : '1');
+    obj['threadBata'] = (last_status < 0 ? '-1' : '1');
+  } else {
+    if (status == 1) {
+      let condition = source.closest(".vote-wrapper").find(".fa-arrow-up").hasClass('C(c-green)');
+      obj['eventDetails.action'] = (condition ? 'cendol' : 'uncendol');
+      obj['threadCendol'] = (condition ? '1' : '-1');
+    } else {
+      let condition = source.closest(".vote-wrapper").find(".fa-arrow-down").hasClass('C(c-red)');
+      obj['eventDetails.action'] = (condition ? 'bata' : 'unbata');
+      obj['threadBata'] = (condition ? '1' : '-1');
+    }
+  }
+
+  _gaq.push(['_trackEvent', category, obj['eventDetails.action'], postId]);
+  dataLayer.push(obj);
+}
+
+
 // @codekit-prepend "../backend/backend-subforum.js";
 // @codekit-prepend "../backend/backend-thread.js";
 // @codekit-prepend "../backend/backend-user.js";
@@ -2348,6 +2715,42 @@ $(document).ready(function(){
 /**
  * Function subscribe unsubscribe thread (sub forum and thread used)
  */
+
+//share fb
+function threadlist_facebook_share(url, data_threadid) {
+
+ FB.ui({
+   method: 'share',
+   href: url,
+ }, function(response){
+   if(response && !response.error_code)
+   {
+     threadlist_share_count(data_threadid, 'facebook');
+     _gaq.push(['_trackSocial', 'facebook', 'send', url]);
+     customGtm.clickEventToAnalytics('facebook', 'send', url);
+   }
+ });
+
+ return false;
+}
+
+//share count
+function threadlist_share_count(threadId, shareType) {
+  $.ajax({
+    url: WAP_KASKUS_URL + '/misc/update_share_count',
+    type: 'POST',
+    data: {
+      share_type: shareType,
+      thread_id: threadId
+    },
+    xhrFields: {
+      withCredentials: true
+    },
+    success: function(resp){ },
+    error: function(xhr){ }
+  });
+}
+
 function gaTrackOb(el) {
   var type = el.attr('data-type');
   var category = el.attr('data-category');
@@ -2745,7 +3148,7 @@ function build_ga_track_event(category, action , label )
 	return ga_event_code + gtm_event_code;
 }
 
-function build_ga_custom_track_share_thread(category, action, label, el) {
+function build_ga_custom_track_share_thread(category, action, label, el, customDimension) {
   var threadId = el.attr('data-threadid');
   var threadTitle = decodeURIComponentSafe(el.attr('data-title')).replace('&#92;', "");
   var author = el.attr('data-author');
@@ -2755,24 +3158,30 @@ function build_ga_custom_track_share_thread(category, action, label, el) {
   var forumParentName = el.attr('data-forum-parent-name');
   var channelId = el.attr('data-channel-id');
   var channelName = el.attr('data-channel-name');
-  var ga_event_code = "_gaq.push(['_trackEvent', " + category + ", " + action + ", " + label + "]);";
-  var gtm_event_code = "dataLayer.push({" +
-    "'event': 'trackEvent'," +
-    "'eventDetails.category': " + category + "," +
-    "'eventDetails.action': " + action + "," +
-    "'eventDetails.label': " + label + "," +
-    "'threadShared': '1'," +
-    "'userID': '" + user_id + "'," +
-    "'threadId': '" + threadId + "'," +
-    "'threadTitle': '" + threadTitle + "'," +
-    "'author': '" + author + "'," +
-    "'forumId': '" + forumId + "'," +
-    "'forumName': '" + forumName + "'," +
-    "'forumParentId': '" + forumParentId + "'," +
-    "'forumParentName': '" + forumParentName + "'," +
-    "'channelId': '" + channelId + "'," +
-    "'channelName': '" + channelName + "'" +
-  "});";
+  var ga_event_code = "_gaq.push(['_trackEvent', '" + category + "', '" + action + "', '" + label + "']);";
+  var trackObject = {
+    'event': 'trackEvent',
+    'eventDetails.category': category,
+    'eventDetails.action': action,
+    'eventDetails.label': label,
+    'threadShared': '1',
+    'userID': user_id,
+    'threadId': threadId,
+    'threadTitle': threadTitle,
+    'author': author,
+    'forumId': forumId,
+    'forumName': forumName,
+    'forumParentId': forumParentId,
+    'forumParentName': forumParentName,
+    'channelId': channelId,
+    'channelName': channelName
+  };
+
+  if(customDimension) {
+    trackObject = Object.assign(trackObject, customDimension);
+  }
+
+  var gtm_event_code = 'dataLayer.push(' + JSON.stringify(trackObject).replace(/"/g, "'") + ');';
 
   return ga_event_code + gtm_event_code;
 }
@@ -3197,13 +3606,8 @@ function goToStories(e) {
 
 // DOCUMENT READY
 $(document).ready(function() {
+  bindVoteButton();
   bindCopyTextButton();
-  yall({
-    observeChanges: true,
-    lazyBackgroundClass: 'mls-div-img',
-    threshold: 300,
-    observeRootSelector: 'div.parentWrapper'
-  });
   init_div_lazyload();
 
   $(document).on("click", ".jsShowNestedTrigger", function(element) {
