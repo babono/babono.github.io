@@ -177,6 +177,9 @@ function createThreadlistShareMenuData(elThreadListMenu) {
     var slugtitle = divMenu.attr('data-slugtitle');
     var show_button_first_post = divMenu.attr('data-show-button-first-post');
     var last_post_id = divMenu.attr('data-last-post-id');
+    var fb_href = divMenu.attr('data-fb-href');
+    var fb_url = divMenu.attr('data-fb-url');
+    var twitter_href = divMenu.attr('data-twitter-href');
     var subscribeMenuString = '';
     if (is_subscribe == 'true') {
       subscribeMenuString =
@@ -195,7 +198,7 @@ function createThreadlistShareMenuData(elThreadListMenu) {
         '</a>';
     } else {
       subscribeMenuString =
-        '<a' +
+        '<a ' +
         'href="javascript:void(0);" ' +
         'class="D(b) C(c-normal) Bgc(#e9e9e9):h My(3px) Py(5px) Px(10px) jsSubscribeThreadIcon"'+
         'data-type="thread" ' +
@@ -219,12 +222,36 @@ function createThreadlistShareMenuData(elThreadListMenu) {
         '</a> '+
         '</li>';
     }
-
+    var showShareBtn = '';
+    if (fb_url != undefined || twitter_href != undefined) {
+      showShareBtn = '<div class="H(1px) Bgc(#d4d4d4) Mx(10px)"></div> ';
+      if (fb_url != undefined) {
+        showShareBtn +=
+          '<li class="D(b) Cur(p)"> ' +
+          '<a href="javascript:void(0);" data-url="' + fb_url + '" data-threadid="' + threadid + '" onclick="threadlist_facebook_share(\'' + fb_url + '\', \'' + threadid + '\');' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'facebook'", divMenu) + '" class="D(b) C(c-normal) Bgc(#e9e9e9):h My(3px) Py(5px) Px(10px)"> ' +
+          '<i class="Mend(12px) Va(m) fab Fz(14px) fa-facebook-square fa-fw"></i> ' +
+          '<span class="Fz(12px)">' + window.KASKUS_lang.share_facebook_button + '</span> ' +
+          '</a>' +
+          '</li>';
+      }
+      if (twitter_href != undefined) {
+        showShareBtn +=
+          '</li> ' +
+          '<li class="D(b) Cur(p)"> ' +
+          '<a target="_blank" href="' + twitter_href + '" data-threadid="' + threadid + '" onclick="threadlist_share_count(\'' + threadid + '\', \'twitter\');' + build_ga_custom_track_share_thread("'" + forum_id + " " + title + "'", "'share thread'", "'twitter'", divMenu) + '" class="D(b) C(c-normal) Bgc(#e9e9e9):h My(3px) Py(5px) Px(10px)"> ' +
+          '<i class="Mend(12px) Va(m) fab Fz(14px) fa-twitter-square fa-fw"></i> ' +
+          '<span class="Fz(12px)">' + window.KASKUS_lang.share_twitter_button + '</span> ' +
+          '</a> ' +
+          '</li> ';
+      }
+      showShareBtn += '<div class="H(1px) Bgc(#d4d4d4) Mx(10px)"></div>';
+    }
     var elString =
     '<ul>' +
-    '<li class="D(b) ">' +
+    '<li class="D(b) Cur(p)">' +
       subscribeMenuString +
     '</li>' +
+      showShareBtn+
       firstPostButtonString +
     '<li class="D(b)">' +
     '<a href="/lastpost/' + threadid + '#post' + last_post_id + '" class="D(b) C(c-normal) Bgc(#e9e9e9):h My(3px) Py(5px) Px(10px)" rel="nofollow"> ' +
@@ -373,12 +400,14 @@ function bindTrhHome() {
             trh_data += '<a class="C(c-dark-grey)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '">';
             trh_data += '<div class="D(f) Mb(10px) ' + additional_class + 'Pb(15px)">';
             trh_data += '<div class="Fx(flexOne)">';
-            trh_data += '<div class="C(c-dark-grey) Fz(13px) Lh(19px) Lts(0.1px) Fw(500)">' + thread_detail['title'] + '</div>';
-            trh_data += '<a href="' + thread_detail['forum_href'] + '" class="C(c-secondary)">';
+            trh_data += '<div class="C(c-dark-grey) Fz(14px) Lh(19px) Lts(0.1px) Fw(500)">' + thread_detail['title'] + '</div>';
+            trh_data += '<a href="' + thread_detail['forum_href'] + '" class="C(c-secondary)" onclick="' + thread_detail['ga_track'] + '">';
             trh_data += '<div class="Fz(12px) C(c-secondary) Mt(5px)">' + thread_detail['forum_name'] + '</div></a></div>';
 
-            if (Boolean(thread_detail['image_source'])) {
-              trh_data += '<div class="Fx(flexZero) Mstart(10px) Bdrs(5px) Bdrsbstart(0) Ov(h)"><img src="' + thread_detail['image_source'] + '" alt="' + thread_detail['slug_title'] + '" data-src="' + thread_detail['data-img-src'] + '" class="mls-img Maw(60px) W(60px) H(60px)" ></div>';
+            if (Boolean(thread_detail['data-img-src'])) {
+              trh_data += '<a class="W(60px) H(60px) Fx(flexZero) Mstart(10px) Bdrs(5px) Bdrsbstart(0) Ov(h)" href="' + thread_detail['href'] + '" onclick="' + thread_detail['ga_track'] + '">';
+              trh_data += '<img alt="' + thread_detail['slug_title'] + '" data-src="' + thread_detail['data-img-src'] + '" class="mls-img Bdrs(5px) Bdrsbstart(0) W(100%) oFitCover H(100%)" >';
+              trh_data += '</a>';
             }
 
             trh_data += '</div></a>';
@@ -400,7 +429,6 @@ function bindTrhHome() {
     });
   }
 }
-
 /*
  * get trh in forum landing / threadlist
  */
@@ -489,6 +517,7 @@ function bindSubscribeButton() {
     $('.jsSubscribeThreadIcon').unbind();
     $('.jsSubscribeThreadIcon').click(function() {
       subscribeUnsubscribe($(this));
+      return false;
     });
   } else {
     window.setTimeout(bindSubscribeButton, 1000);
@@ -3284,8 +3313,10 @@ function fetch_more_thread_showcase() {
 	}
 	showcaseLoading = true;
 	var offset = anchor.attr('data-offset');
+	var status = anchor.attr('data-status');
+   
 	$.ajax({
-		url: KASKUS_URL + '/threadshowcase/load_all_more/' + offset,
+		url: KASKUS_URL + '/threadshowcase/load_more_hot_topic_list/' + offset + '/?status=' + status,
 		type: 'GET',
 		xhrFields: {
 			withCredentials: true
@@ -3303,11 +3334,14 @@ function fetch_more_thread_showcase() {
 			var newElem = '';
 			for (var i = 0; i < showcaseData.length; i++) {
 				newElm = baseElm.clone();
-				newElm.attr('href', '/topics/' + showcaseData[i].url + '/?ref=topiclist&med=topicshowcase');
-				$(newElm).find("img").attr("src", showcaseData[i].media_vertical);
+				newElm.attr('href', '/topic/' + showcaseData[i].url + '/?ref=topiclist&med=topicshowcase');
+				newElm.attr('onclick', showcaseData[i].tracking);
+				$(newElm).find("img").attr("data-src", showcaseData[i].media_vertical);
 				$(newElm).find("img").attr("alt", showcaseData[i].url);
+				$(newElm).find("img").attr("class", 'mls-img');
 				newElm.removeClass("D(n) showcase-base");
 				newElm.insertBefore(baseElm);
+				$(".mls-img").kslzy(300);
 			}
 			var newOffset = parseInt(parseInt(offset) + showcaseData.length);
 			anchor.attr('data-offset', newOffset);
@@ -3502,9 +3536,12 @@ function landing_connection(followBtn) {
 				followBtn.attr('data-hover', data.word);
 				followBtn.attr('data-url', data.url);
 				followBtn.text(data.label_connection);
+				followBtn.removeClass('C(c-white) nightmode_C(c-tersier-night) Bgc(c-blue) nightmode_Bgc(c-orange-night)');
+				followBtn.addClass('C(c-secondary) nightmode_C(c-tersier-night) Bgc(c-gray-2) nightmode_Bgc(c-orange-night)');
 
 				followCustomMetrics('follow', current_id, creator_id.toString());
 				showBottomToast(window.KASKUS_lang.success_follow_msg.replace('%s', creator_username), 3000);
+				bindTopKreatorHoverFollowBtn();
 			} else if (data.connection_type == 'Follow') {
 				followBtn.removeAttr('data-default');
 				followBtn.removeAttr('data-hover');
@@ -3512,19 +3549,17 @@ function landing_connection(followBtn) {
 				followBtn.text(data.word);
 
 				if (data.hasOwnProperty('number_of_following')) {
+					followBtn.removeClass('C(c-secondary) nightmode_C(c-tersier-night) Bgc(c-gray-2) nightmode_Bgc(c-orange-night)');
+					followBtn.addClass('C(c-white) nightmode_C(c-tersier-night) Bgc(c-blue) nightmode_Bgc(c-orange-night)');
 					followCustomMetrics('unfollow', current_id, creator_id.toString());
 					showBottomToast(window.KASKUS_lang.success_unfollow_msg.replace('%s', creator_username), 3000);
 				} else {
+					followBtn.removeClass('C(c-red-1) nightmode_C(c-tersier-night) Bgc(c-gray-2) nightmode_Bgc(c-orange-night');
+					followBtn.addClass('C(c-white) nightmode_C(c-tersier-night) Bgc(c-blue) nightmode_Bgc(c-orange-night)');
 					ignoreDataLayer('unignore');
+					showBottomToast(window.KASKUS_lang.success_unignore_msg.replace('%s', creator_username), 3000);
 				}
-			} else if (data.connection_type == 'Unblock') {
-				followBtn.attr('data-default', data.label_connection);
-				followBtn.attr('data-hover', data.word);
-				followBtn.attr('data-url', data.url);
-				followBtn.text(data.label_connection);
-
-				followCustomMetrics('ignore');
-				showBottomToast(window.KASKUS_lang.success_unignore_msg.replace('%s', creator_username), 3000);
+				$(this).unbind('mouseenter mouseleave');
 			}
 		} else if (data.result == false) {
 			showBottomToast(data.error_message, 3000);
@@ -3532,17 +3567,19 @@ function landing_connection(followBtn) {
 	}, "json");
 }
 
-function bindTopKreatorFollowBtn() {
-	$('.jsLandingFollowBtn')
-	.click(function() {
-		landing_connection($(this));
-	})
-	.mouseenter(function() {
-		$(this).text($(this).data('hover'));
-	})
-	.mouseleave(function() {
-		$(this).text($(this).data('default'));
-	});
+function bindTopKreatorClickFollowBtn() {
+  $('.jsLandingFollowBtn').click(function(){
+      landing_connection($(this));
+  });
+}
+
+function bindTopKreatorHoverFollowBtn() {
+  $('.jsLandingFollowBtn').mouseenter(function() {
+      $(this).text($(this).attr('data-hover'));
+  })
+  .mouseleave(function() {
+      $(this).text($(this).attr('data-default'));
+  });
 }
 
 function bindTopicDetailThreadNext() {
@@ -3604,8 +3641,10 @@ function fetch_more_topic_detail_thread() {
 			for (var key in threadList) {
 				iconColor = 'subscribe' == threadList[key].subcriptionState ? ' C(c-normal)' : ' C(#f8c31c)';
 				if (threadList[key].metaImages) {
-					divMetaImages = '<div style="background-image:url(' + threadList[key].metaImages;
-					divMetaImages += ')" class="W(90px) Fx(flexZero) Mstart(10px) Bdrs(5px) Bdrsbstart(0) H(90px) Bgz(cv) Bgp(c) "></div>';
+					divMetaImages = '<div class="W(90px) Fx(flexZero) Mstart(10px) H(90px)">';
+					divMetaImages += '<a href="/thread/'+ threadList[key].threadId +'?ref=topic-'+ threadList[key].topicUrl +'&med=thread_list">';
+					divMetaImages += '<img alt=" ' + threadList[key].threadTitleSlug + '" data-src="' + threadList[key].metaImages +'" class="mls-img Bdrs(5px) Bdrsbstart(0) oFitCover W(100%) H(100%)">';
+					divMetaImages += '</a></div>';
 				}
 				threadListHtml += templateHtml.replace(/{{postUserId}}/g, threadList[key].postUserId)
 				.replace(/{{postUsername}}/g, threadList[key].postUsername)
@@ -3640,13 +3679,26 @@ function fetch_more_topic_detail_thread() {
 				.replace(/{{iconColor}}/g, iconColor)
 				.replace(/{{topicName}}/g, threadList[key].topicName)
 				.replace(/{{topicId}}/g, threadList[key].topicId)
-				.replace(/{{metaImages}}/g, divMetaImages);
+				.replace(/{{upArrowColor}}/g, threadList[key].upArrowColor)
+				.replace(/{{downArrowColor}}/g, threadList[key].downArrowColor)
+				.replace(/{{metaImages}}/g, divMetaImages)
+				.replace(/{{topicUrl}}/g, threadList[key].topicUrl);
 			}
 			$('#threadlist_visualita .hot-topic-base').before(threadListHtml);
 			anchor.attr('data-cursor', response.nextCursor);
 			topicDetailThreadLoading = false;
 			bindSubscribeButton();
 			bindOpenWhoPosted();
+			if (threadList.length > 0) {
+				_gaq && _gaq.push(['_trackEvent', 'topic detail', 'load more', threadList[key].topicName]);
+				dataLayer && dataLayer.push({
+					'event': 'trackEvent',
+					'eventDetails.category': 'topic detail',
+					'eventDetails.action': 'load more',
+					'eventDetails.label': threadList[key].topicName
+				});
+			}
+			$(".mls-img").kslzy(300);
 		},
 		error: function () {
 			topicDetailThreadLoading = false;
@@ -3678,7 +3730,7 @@ function createHorizontalShareMenu(elShareBar) {
 			var category = forum_id + " " + title;
 		}
 		var elString =
-		'<a href="javascript:void(0);" data-url="' + fb_url + '" data-threadid="' + threadid + '" onclick="threadlist_facebook_share(\'' + fb_url + '\', \'' + threadid + '\');' + build_ga_custom_track_share_thread(category, "share thread", "facebook", shareDataEl, custom_dimension) + '" class="C(c-facebook) C(c-facebook-hover):h Mend(15px) ' + font_size + '" >' +
+		'<a href="' + fb_href + '" data-url="' + fb_url + '" data-threadid="' + threadid + '" onclick="threadlist_facebook_share(\'' + fb_url + '\', \'' + threadid + '\');' + build_ga_custom_track_share_thread(category, "share thread", "facebook", shareDataEl, custom_dimension) + ';return false;" class="C(c-facebook) C(c-facebook-hover):h Mend(15px) ' + font_size + '" >' +
 		'<i class="fab fa-facebook-f"></i>' +
 		'</a>' +
 		'<a target="_blank" href="' + fb_msg_href + '" data-threadid="' + threadid + '" onclick="threadlist_share_count(\'' + threadid + '\', \'facebook-messenger\');' + build_ga_custom_track_share_thread(category, "share thread", "facebook-messenger", shareDataEl, custom_dimension) + '" class="C(c-facebook-messenger) C(c-facebook-messenger-hover):h Mx(15px) ' + font_size + '">' +
@@ -4346,8 +4398,8 @@ function gaTrackOb(el) {
              } else if (el.attr('data-style') == 'icon-thread') {
                el.attr('title', el.attr('title-unsubscribe'));
                var iEl = el.find('i:first');
-               iEl.removeClass("C(#b3b3b3)");
-               iEl.addClass("C(#f8c31c)");
+               iEl.removeClass("C(c-tertiary)");
+               iEl.addClass("C(c-yellow-1)");
                var elementJsSubscribeThreadIcon = document.querySelector('.jsSubscribeThreadIcon');
                var tipJsSubscribeThreadIcon = elementJsSubscribeThreadIcon._tippy;
                tipJsSubscribeThreadIcon.setContent(el.attr('title-unsubscribe'));
@@ -4391,8 +4443,8 @@ function gaTrackOb(el) {
              } else if (el.attr('data-style') == 'icon-thread') {
                el.attr('title', el.attr('title-subscribe'));
                var iEl = el.find('i:first');
-               iEl.removeClass("C(#f8c31c)");
-               iEl.addClass("C(#b3b3b3)");
+               iEl.removeClass("C(c-yellow-1)");
+               iEl.addClass("C(c-tertiary)");
                var elementJsSubscribeThreadIcon = document.querySelector('.jsSubscribeThreadIcon');
                var tipJsSubscribeThreadIcon = elementJsSubscribeThreadIcon._tippy;
                tipJsSubscribeThreadIcon.setContent(el.attr('title-subscribe'));
@@ -4424,6 +4476,8 @@ function gaTrackOb(el) {
              }
              }
            }
+         } else {
+          window.location = '/user/login' + el.attr('href');
          }
          var index_el = subscribeUnsubscribeEls.indexOf(el.attr('id'));
          if (index_el > -1) {
@@ -4893,6 +4947,7 @@ function toggleOverlay() {
   }
 }
 
+
 function showBottomToast(text, time) {
   $('.jsBottomToast').addClass('is-visible');
   $('.jsBottomToast').text(text);
@@ -5143,91 +5198,91 @@ function stickyShare(){
 var index;
 var timeout = null;
 
-function resetAnimation() {
-  var el = document.querySelector('.jsHotTopicStoriesItem i');
-  el.style.animation = 'none';
-  el.offsetHeight; /* trigger reflow */
-  el.style.animation = null;
-}
+// function resetAnimation() {
+//   var el = document.querySelector('.jsHotTopicStoriesItem i');
+//   el.style.animation = 'none';
+//   el.offsetHeight; /* trigger reflow */
+//   el.style.animation = null;
+// }
 
-function playStory(element) {
-  $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
-  resetAnimation();
+// function playStory(element) {
+//   $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
+//   resetAnimation();
 
-  var totalStories = $('.jsHotTopicStoriesItem').length;
-  if (element) {
-    index = $(element).attr('data-index');
-  }
+//   var totalStories = $('.jsHotTopicStoriesItem').length;
+//   if (element) {
+//     index = $(element).attr('data-index');
+//   }
 
-  var media = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-media');
-  var duration = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-duration');
-  var date = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-date');
-  var link = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-link');
-  var title = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-title');
-  var description = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-description');
-  var tracking = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-tracking');
+//   var media = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-media');
+//   var duration = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-duration');
+//   var date = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-date');
+//   var link = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-link');
+//   var title = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-title');
+//   var description = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-description');
+//   var tracking = $(".jsHotTopicStoriesItem[data-index='" + index + "']").attr('data-tracking');
 
 
-  $(".jsHotTopicStoriesItem[data-index='" + index + "']").prevAll().addClass('is-seen');
-  $(".jsHotTopicStoriesItem[data-index='" + index + "']").addClass('is-playing');
-  $(".jsHotTopicStoriesItem[data-index='" + index + "'] i").css('animation-duration', duration+'ms');
-  $('.jsHotTopicStoriesMedia').css('background-image', 'url(' + media + ')');
-  $('.jsHotTopicStoriesDate').html(date);
-  $('.jsHotTopicStoriesTitle').html(title);
-  $('.jsHotTopicStoriesDescription').html(description);
-  $('.jsHotTopicStoriesLink').attr({href:link, onclick:tracking});
-  index++;
-  if (index < totalStories) {
-    timeout = setTimeout(function() {
-      playStory();
-    }, duration);
-  } else {
-    setTimeout(function() {
-      closeStories();
-    }, parseInt(duration) + 100);
-  }
-}
+//   $(".jsHotTopicStoriesItem[data-index='" + index + "']").prevAll().addClass('is-seen');
+//   $(".jsHotTopicStoriesItem[data-index='" + index + "']").addClass('is-playing');
+//   $(".jsHotTopicStoriesItem[data-index='" + index + "'] i").css('animation-duration', duration+'ms');
+//   $('.jsHotTopicStoriesMedia').css('background-image', 'url(' + media + ')');
+//   $('.jsHotTopicStoriesDate').html(date);
+//   $('.jsHotTopicStoriesTitle').html(title);
+//   $('.jsHotTopicStoriesDescription').html(description);
+//   $('.jsHotTopicStoriesLink').attr({href:link, onclick:tracking});
+//   index++;
+//   if (index < totalStories) {
+//     timeout = setTimeout(function() {
+//       playStory();
+//     }, duration);
+//   } else {
+//     setTimeout(function() {
+//       closeStories();
+//     }, parseInt(duration) + 100);
+//   }
+// }
 
-function closeStories() {
-  index = 0;
-  $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
-  $('.jsHotTopicStories').removeClass('is-show');
-  $(document.body).removeClass("Ov(h)");
-  if (timeout != null) {
-    clearTimeout(timeout);
-    timeout= null;
-  }
-}
+// function closeStories() {
+//   index = 0;
+//   $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
+//   $('.jsHotTopicStories').removeClass('is-show');
+//   $(document.body).removeClass("Ov(h)");
+//   if (timeout != null) {
+//     clearTimeout(timeout);
+//     timeout= null;
+//   }
+// }
 
-function goToStories(direction) {  
-  var goTo;
-  if (timeout != null) {
+// function goToStories(direction) {  
+//   var goTo;
+//   if (timeout != null) {
 
-    clearTimeout(timeout);
-    timeout= null;
-  }
+//     clearTimeout(timeout);
+//     timeout= null;
+//   }
 
-  if(direction == 'prev'){
-    if(index - 2 < 0){
+//   if(direction == 'prev'){
+//     if(index - 2 < 0){
 
-        goTo = ".jsHotTopicStoriesItem[data-index='0']";
+//         goTo = ".jsHotTopicStoriesItem[data-index='0']";
 
-    }else{
-      goTo = ".jsHotTopicStoriesItem[data-index='" + (index-2) + "']";
-    }
+//     }else{
+//       goTo = ".jsHotTopicStoriesItem[data-index='" + (index-2) + "']";
+//     }
 
-    index = 0;
-    $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
-    playStory(goTo);
-  }
-  else{
+//     index = 0;
+//     $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
+//     playStory(goTo);
+//   }
+//   else{
 
-    goTo = ".jsHotTopicStoriesItem[data-index='" + index + "']";
-    index = 0;
-    $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
-    playStory(goTo);
-  }
-}
+//     goTo = ".jsHotTopicStoriesItem[data-index='" + index + "']";
+//     index = 0;
+//     $(".jsHotTopicStoriesItem").removeClass('is-seen is-playing');
+//     playStory(goTo);
+//   }
+// }
 
 $(document).ready(function() {
 
@@ -5542,7 +5597,7 @@ $(document).on('click','.jsTabNav',function(){
    */
   var clipboard = new ClipboardJS('.jsClipboardButton');
   clipboard.on('success', function(e) {
-    showBottomToast("URL Copied to Clipboard", '2000');
+    showBottomToast("Link Tersalin", '2000');
   });
 
   /*
@@ -5607,6 +5662,7 @@ $(document).on('click','.jsTabNav',function(){
 
   $('.jsSubscribeThreadIcon').click(function() {
     subscribeUnsubscribe($(this));
+    return false;
   });
 
   $('#jsReplyTextArea').focus(function() {
@@ -5973,5 +6029,6 @@ $(document).on('click','.jsTabNav',function(){
   bindForumAllIconCancel();
   bindForumAllSearchResult();
   bindForumAllSubscribeEvent();
-  bindTopKreatorFollowBtn();
+  bindTopKreatorClickFollowBtn();
+  bindTopKreatorHoverFollowBtn();
 });
