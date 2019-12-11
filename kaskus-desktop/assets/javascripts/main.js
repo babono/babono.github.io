@@ -5806,7 +5806,7 @@ $(document).ready(function () {
     }
   });
 
-  $('body').on('click', '.jsShowNestedTrigger', function (element) {
+  $('#thread_post_list').on('click', '.jsShowNestedTrigger', function (element) {
     var nestedItemTotal = $(this).attr('data-replycount');
 
     if (!$(this).parent().next().hasClass('is-hide')) {
